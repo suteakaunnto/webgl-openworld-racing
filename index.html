@@ -40,6 +40,16 @@
     h1 { margin: 8px 0 7px; font-size: 19px; letter-spacing: .03em; font-weight: 650; }
     .description { margin: 0; color: #b0bfcc; font-size: 12px; line-height: 1.85; }
     #model-info { margin-top: 13px; color: #d1dee8; font: 11px/1.8 ui-monospace, "Yu Gothic UI", Meiryo, Consolas, monospace; white-space: pre-line; }
+    .motion-test { margin-top: 16px; padding-top: 13px; border-top: 1px solid rgba(174,203,225,.15); }
+    .motion-test h2 { margin: 0 0 6px; color: #dceaf4; font-size: 13px; letter-spacing: .04em; }
+    .motion-test p { margin: 0 0 10px; color: #9fb0be; font-size: 10px; line-height: 1.65; }
+    .motion-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 7px; }
+    .motion-grid button { min-height: 34px; padding: 7px 8px; font-size: 10px; }
+    .motion-grid button:disabled, input:disabled { opacity: .4; cursor: not-allowed; }
+    .motion-grid button.control-active { border-color: #83caef; background: rgba(45,126,174,.38); color: #fff; }
+    .steering-row { display: flex; align-items: center; gap: 9px; margin-top: 11px; color: #b6c8d7; font-size: 10px; }
+    .steering-row input { flex: 1; min-width: 0; accent-color: #83caef; }
+    #test-status { margin-top: 9px; color: #9fc2d9; font: 10px/1.6 ui-monospace, "Yu Gothic UI", Meiryo, Consolas, monospace; white-space: pre-line; }
     .toolbar { display: flex; gap: 8px; margin-top: 13px; flex-wrap: wrap; }
     button {
       border: 1px solid rgba(151, 190, 218, .28); border-radius: 8px; padding: 9px 12px; color: #dce9f1;
@@ -92,6 +102,26 @@
       <button id="rotate-toggle" type="button" data-i18n="pauseRotation">自動回転を一時停止</button>
       <button id="reset-view" type="button" data-i18n="resetView">視点をリセット</button>
     </div>
+    <section class="motion-test" aria-labelledby="motion-heading">
+      <h2 id="motion-heading" data-i18n="motionHeading">車両パーツ動作テスト</h2>
+      <p data-i18n="motionDescription">各ボタンで部品が実際に動くか確認できます。スライダーで前輪の操舵角を変えられます。</p>
+      <div class="motion-grid">
+        <button id="wheel-test-toggle" type="button" disabled data-i18n="wheelTestStart">タイヤ回転テスト開始</button>
+        <button id="popup-toggle" type="button" disabled data-i18n="popupOpen">ポップアップライトを開く</button>
+        <button id="headlight-toggle" type="button" disabled data-i18n="headlightsOn">ヘッドライト ON</button>
+        <button id="brake-toggle" type="button" disabled data-i18n="brakeOn">ブレーキランプ ON</button>
+        <button id="indicator-left" type="button" disabled data-i18n="indicatorLeft">左ウインカー</button>
+        <button id="indicator-right" type="button" disabled data-i18n="indicatorRight">右ウインカー</button>
+        <button id="indicator-hazard" type="button" disabled data-i18n="indicatorHazard">ハザード</button>
+        <button id="indicator-off" type="button" disabled data-i18n="indicatorOff">ウインカー OFF</button>
+      </div>
+      <label class="steering-row">
+        <span data-i18n="steeringLabel">前輪ステアリング</span>
+        <input id="steering-slider" type="range" min="-35" max="35" value="0" step="1" disabled>
+        <output id="steering-value">0°</output>
+      </label>
+      <div id="test-status" aria-live="polite">モデル読込後に操作できます</div>
+    </section>
     <details>
       <summary data-i18n="creditsHeading">3Dモデルのクレジット・ライセンス</summary>
       <div class="credits">

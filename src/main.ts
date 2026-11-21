@@ -5,6 +5,7 @@
  */
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
+import { VehicleMotionRig } from "./vehicle-rig";
 import { getLanguage, setLanguage, t, type Language } from "./i18n";
 
 function requireElement<T extends Element>(selector: string): T {
@@ -21,6 +22,17 @@ const rotateButton = requireElement<HTMLButtonElement>("#rotate-toggle");
 const resetButton = requireElement<HTMLButtonElement>("#reset-view");
 const languageButton = requireElement<HTMLButtonElement>("#language-toggle");
 const modelData = document.querySelector<HTMLScriptElement>("#embedded-model-json");
+const wheelButton = requireElement<HTMLButtonElement>("#wheel-test-toggle");
+const popupButton = requireElement<HTMLButtonElement>("#popup-toggle");
+const headlightButton = requireElement<HTMLButtonElement>("#headlight-toggle");
+const brakeButton = requireElement<HTMLButtonElement>("#brake-toggle");
+const indicatorLeftButton = requireElement<HTMLButtonElement>("#indicator-left");
+const indicatorRightButton = requireElement<HTMLButtonElement>("#indicator-right");
+const indicatorHazardButton = requireElement<HTMLButtonElement>("#indicator-hazard");
+const indicatorOffButton = requireElement<HTMLButtonElement>("#indicator-off");
+const steeringSlider = requireElement<HTMLInputElement>("#steering-slider");
+const steeringValue = requireElement<HTMLOutputElement>("#steering-value");
+const testStatus = requireElement<HTMLElement>("#test-status");
 
 let currentStatus: "loading" | "ready" | "failed" = "loading";
 let automaticRotation = true;
@@ -35,6 +47,13 @@ let previousPointerY = 0;
 let modelRoot: THREE.Object3D | null = null;
 let modelSize = new THREE.Vector3();
 let stats = { nodes: 0, meshes: 0, triangles: 0 };
+let motionRig: VehicleMotionRig | null = null;
+let wheelTestEnabled = false;
+let popupOpen = false;
+let headlightsEnabled = false;
+let brakeEnabled = false;
+let indicatorMode: "off" | "left" | "right" | "hazard" = "off";
+let steeringDegrees = 0;
 
 let target = new THREE.Vector3(0, 0.65, 0);
 
@@ -59,6 +78,7 @@ function applyLanguage(): void {
   status.textContent = t(currentStatus);
 
   if (modelRoot) renderModelInfo();
+  updateMotionControls();
 }
 
 function renderModelInfo(): void {
@@ -70,6 +90,35 @@ function renderModelInfo(): void {
     `${t("modelTriangles")}: ${stats.triangles.toLocaleString(numberLocale)}`,
     `${t("modelDimensions")}: ${modelSize.x.toFixed(2)} × ${modelSize.y.toFixed(2)} × ${modelSize.z.toFixed(2)} m`
   ].join("\n");
+}
+
+function setControlPressed(button: HTMLButtonElement, pressed: boolean): void {
+  button.classList.toggle("control-active", pressed);
+  button.setAttribute("aria-pressed", String(pressed));
+}
+
+function updateMotionControls(available = currentStatus === "ready"): void {
+  const buttons = [wheelButton, popupButton, headlightButton, brakeButton, indicatorLeftButton, indicatorRightButton, indicatorHazardButton, indicatorOffButton];
+  for (const button of buttons) button.disabled = !available;
+  steeringSlider.disabled = !available;
+  wheelButton.textContent = wheelTestEnabled ? t("wheelTestStop") : t("wheelTestStart");
+  popupButton.textContent = popupOpen ? t("popupClose") : t("popupOpen");
+  headlightButton.textContent = headlightsEnabled ? t("headlightsOff") : t("headlightsOn");
+  brakeButton.textContent = brakeEnabled ? t("brakeOff") : t("brakeOn");
+  steeringValue.value = String(steeringDegrees) + "°";
+  steeringValue.textContent = String(steeringDegrees) + "°";
+  setControlPressed(wheelButton, wheelTestEnabled);
+  setControlPressed(popupButton, popupOpen);
+  setControlPressed(headlightButton, headlightsEnabled);
+  setControlPressed(brakeButton, brakeEnabled);
+  setControlPressed(indicatorLeftButton, indicatorMode === "left");
+  setControlPressed(indicatorRightButton, indicatorMode === "right");
+  setControlPressed(indicatorHazardButton, indicatorMode === "hazard");
+  setControlPressed(indicatorOffButton, indicatorMode === "off");
+  const rigInfo = motionRig
+    ? String(motionRig.wheelCount) + "/4 " + t("motionWheels") + " · " + String(motionRig.popupCount) + "/2 " + t("motionPopups") + " · " + String(motionRig.lampCount) + " " + t("motionLamps")
+    : t("motionRigLoading");
+  testStatus.textContent = (available ? t("motionReady") : currentStatus === "failed" ? t("motionUnavailable") : t("motionLoading")) + " · " + rigInfo;
 }
 
 languageButton.addEventListener("click", () => {
@@ -208,6 +257,8 @@ function prepareVehicle(root: THREE.Object3D): void {
   modelRoot = root;
 
   vehiclePivot.add(root);
+  root.updateWorldMatrix(true, true);
+  motionRig = new VehicleMotionRig(root);
   target.set(0, Math.max(modelSize.y * 0.47, 0.55), 0);
   radius = Math.max(7.1, Math.max(modelSize.x, modelSize.z) * 1.85);
   minimumRadius = Math.max(2.8, radius * 0.42);
@@ -216,6 +267,7 @@ function prepareVehicle(root: THREE.Object3D): void {
   renderModelInfo();
   currentStatus = "ready";
   status.textContent = t(currentStatus);
+  updateMotionControls(true);
 }
 
 function syncCamera(): void {
@@ -229,6 +281,7 @@ function showModelError(error: unknown): void {
   status.textContent = t(currentStatus);
   errorPanel.style.display = "block";
   errorPanel.textContent = t("errorParseModel") + "\n" + String(error);
+  updateMotionControls(false);
 }
 
 if (!modelData?.textContent?.trim()) {
@@ -252,6 +305,42 @@ if (!modelData?.textContent?.trim()) {
     showModelError(error);
   }
 }
+
+wheelButton.addEventListener("click", () => {
+  wheelTestEnabled = !wheelTestEnabled;
+  motionRig?.setWheelSpin(wheelTestEnabled);
+  updateMotionControls();
+});
+popupButton.addEventListener("click", () => {
+  popupOpen = !popupOpen;
+  motionRig?.setPopup(popupOpen);
+  updateMotionControls();
+});
+headlightButton.addEventListener("click", () => {
+  headlightsEnabled = !headlightsEnabled;
+  motionRig?.setHeadlights(headlightsEnabled);
+  updateMotionControls();
+});
+brakeButton.addEventListener("click", () => {
+  brakeEnabled = !brakeEnabled;
+  motionRig?.setBrake(brakeEnabled);
+  updateMotionControls();
+});
+indicatorLeftButton.addEventListener("click", () => setIndicator("left"));
+indicatorRightButton.addEventListener("click", () => setIndicator("right"));
+indicatorHazardButton.addEventListener("click", () => setIndicator("hazard"));
+indicatorOffButton.addEventListener("click", () => setIndicator("off"));
+function setIndicator(mode: "off" | "left" | "right" | "hazard"): void {
+  indicatorMode = mode;
+  motionRig?.setSignal(mode);
+  updateMotionControls();
+}
+steeringSlider.addEventListener("input", () => {
+  steeringDegrees = Number(steeringSlider.value);
+  motionRig?.setSteering(steeringDegrees);
+  updateMotionControls();
+});
+updateMotionControls(false);
 
 renderer.domElement.addEventListener("pointerdown", (event) => {
   pointerId = event.pointerId;
@@ -310,6 +399,7 @@ function animate(time: number): void {
   requestAnimationFrame(animate);
   const deltaSeconds = previousTime === 0 ? 0 : Math.min((time - previousTime) / 1000, 0.05);
   previousTime = time;
+  motionRig?.update(deltaSeconds);
   if (automaticRotation && pointerId === null && modelRoot) vehiclePivot.rotation.y += deltaSeconds * 0.075;
   renderer.render(scene, camera);
 }

@@ -33,6 +33,9 @@ if (html.includes("hasSourceBadgeInAncestry")) {
 if (/__APP_BUNDLE__|__EMBEDDED_MODEL_JSON__/.test(html)) {
   throw new Error("Packaged HTML contains an unexpanded placeholder.");
 }
+for (const required of ["VEHICLE PART MOTION TEST", "wheel-test-toggle", "popup-toggle", "headlight-toggle", "brake-toggle", "indicator-left", "indicator-right", "indicator-hazard", "steering-slider", "MotionPivot_", "PopupHeadlightPivot_", "HeadlightBeam_"]) {
+  if (!html.includes(required)) throw new Error("Motion test output is missing: " + required);
+}
 if (/<script\s+src\s*=|<link[^>]+href\s*=\s*["']https?:|url\(\s*["']?https?:|(?:fetch|import)\s*\(\s*["']https?:/i.test(html)) {
   throw new Error("Packaged HTML contains a remote runtime resource or network-loading call.");
 }

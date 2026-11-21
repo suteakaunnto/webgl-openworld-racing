@@ -2,7 +2,7 @@
 
 ## In-game use
 
-The current M0 Asterion 13R vehicle-form prototype uses the supplied Mazda RX-7 Spirit R Type A model in full. All source scene nodes and meshes are kept visible, including body panels, interior, wheels, lamps, badges and the model's original material/texture assignments. The current game-side changes are limited to car-paint colour adjustment and uniform scale/position fitting for the viewer. No source badge groups are hidden or removed.
+The current M0 Asterion 13R vehicle-form prototype uses the supplied Mazda RX-7 Spirit R Type A model in full. All source scene nodes and meshes are kept visible, including body panels, interior, wheels, lamps, badges and the model's original material/texture assignments. The prototype adjusts car-paint colour and display scale/position, and adds a runtime motion rig for selected moving parts. The rig does not alter the original source geometry or source files. No source badge groups are hidden or removed.
 
 The packer embeds the complete glTF scene, its binary geometry buffer, and all local source texture images into the standalone HTML. The original downloaded source folder and `license.txt` remain unchanged in the repository.
 
@@ -12,7 +12,7 @@ The in-game credits panel includes the source title, author, source link, CC BY 
 
 This work is based on "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com" (https://sketchfab.com/3d-models/mazda-rx-7-spirit-r-type-a-2002-wwwvecarzcom-57ef6f2e2980487080b84e0b16979978) by vecarz (https://sketchfab.com/heynic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/).
 
-Modifications made for KITEBOUND: ROADS OF VEYRA: car-paint material recolouring and uniform model scale/position adjustments for the in-game viewer. All source scene nodes, meshes, material assignments and texture images are retained. The original source asset files are not edited in place.
+Modifications made for KITEBOUND: ROADS OF VEYRA: car-paint material recolouring and display scale/position fitting, plus game-side runtime pivots/animations and light-emission effects for selected vehicle parts. All source scene nodes, meshes, material assignments and texture images are retained. The original source asset files are not edited in place.
 
 ## Source and license facts
 
