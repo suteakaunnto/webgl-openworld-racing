@@ -151,7 +151,7 @@ function loftGeometry(stations: BodyStation[], segments = 40, exponent = 0.88): 
       const b = a + rowLength;
       const c = b + 1;
       const d = a + 1;
-      indices.push(a, b, d, b, c, d);
+      indices.push(a, d, b, b, d, c);
     }
   }
   const geometry = new THREE.BufferGeometry();

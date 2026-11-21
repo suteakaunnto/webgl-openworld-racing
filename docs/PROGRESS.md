@@ -66,7 +66,7 @@ The user clarified that the supplied RX-7 3D model should be used only as a visu
 - First CI run stopped during setup-node because npm caching expected a lockfile that was not present.
 - Second CI run installed dependencies, then TypeScript reported strict-null errors for DOM element variables.
 - A required-element helper was added to fix the nullability issue.
-- CI result for the latest build changes is still pending.
+- Current M0 CI run passed TypeScript and esbuild but stopped in pack.mjs because a post-replacement placeholder check treated inserted bundle text as a possible unresolved marker. The packer now validates exactly one placeholder in the template before replacement and inserts the bundle through a callback.
 - npm install, TypeScript typecheck, bundle, final HTML generation, local offline open, and visual browser validation have not been run in this chat environment.
 - The procedural vehicle-form viewer is an early shape study, not a finished production vehicle.
 - The reference inspector is a dev-only page and must be tested locally via HTTP server.

@@ -23,7 +23,10 @@ const [bundle, template] = await Promise.all([
   readFile(templatePath, "utf8")
 ]);
 
-if (!template.includes("__APP_BUNDLE__")) fail("HTML template is missing the application bundle placeholder.");
+const bundlePlaceholder = "__APP_BUNDLE__";
+if (template.split(bundlePlaceholder).length - 1 !== 1) {
+  fail("HTML template must contain exactly one application bundle placeholder.");
+}
 if (/__RX7_GLTF_DATA_URI__|scene\.bin|GLTFLoader|mazda_rx-7_spirit_r_type_a|vecarz|sketchfab/i.test(bundle + template)) {
   fail("Reference-model content or loader code leaked into the production HTML template or bundle.");
 }
@@ -32,8 +35,7 @@ if (/<script\s+src\s*=|<link[^>]+href\s*=\s*["']https?:|https?:\/\//i.test(templ
 }
 
 const safeBundle = bundle.replace(/<\/script/gi, "<\\/script");
-const html = template.replace("__APP_BUNDLE__", safeBundle);
-if (html.includes("__APP_BUNDLE__")) fail("Application bundle placeholder was not replaced.");
+const html = template.replace(bundlePlaceholder, () => safeBundle);
 
 await mkdir(dirname(outputPath), { recursive: true });
 await writeFile(outputPath, html, "utf8");
