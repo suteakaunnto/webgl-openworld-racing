@@ -66,7 +66,8 @@ The user clarified that the supplied RX-7 3D model should be used only as a visu
 - First CI run stopped during setup-node because npm caching expected a lockfile that was not present.
 - Second CI run installed dependencies, then TypeScript reported strict-null errors for DOM element variables.
 - A required-element helper was added to fix the nullability issue.
-- Current M0 CI run passed TypeScript and esbuild but stopped in pack.mjs because a post-replacement placeholder check treated inserted bundle text as a possible unresolved marker. The packer now validates exactly one placeholder in the template before replacement and inserts the bundle through a callback.
+- The procedural loft index winding was corrected so exterior-facing normals point outward.
+- The packer now successfully generated a 560,183-byte dist/index.html. The subsequent output check falsely flagged URL text inside bundled Three.js legal comments as runtime network dependencies. The check is being narrowed to actual external script/link tags, CSS URLs, fetch calls, and dynamic imports.
 - GitHub Actions ran npm install successfully. TypeScript typecheck and esbuild bundling passed on commit a532325fa532b6703ebbf951bfbf8622143f7e0c; the first reference-only packer run failed at its post-replacement placeholder assertion. A fix is committed in 44f3f57aab2bbbee96d97157725f68fb87d09272 and its rerun is pending.
 - Local offline open and visual browser validation have not been performed.
 - The procedural vehicle-form viewer is an early shape study, not a finished production vehicle.

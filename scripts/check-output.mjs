@@ -25,8 +25,8 @@ if (/scene\.gltf|scene\.bin|GLTFLoader|mazda_rx-7_spirit_r_type_a|vecarz|sketchf
 if (/__APP_BUNDLE__|__RX7_GLTF_DATA_URI__/.test(html)) {
   throw new Error("Packaged HTML contains an unexpanded placeholder.");
 }
-if (/<script\s+src\s*=|<link[^>]+href\s*=\s*["']https?:|https?:\/\//i.test(html)) {
-  throw new Error("Packaged HTML contains an external runtime dependency.");
+if (/<script\s+src\s*=|<link[^>]+href\s*=\s*["']https?:|url\(\s*["']?https?:|(?:fetch|import)\s*\(\s*["']https?:/i.test(html)) {
+  throw new Error("Packaged HTML contains an external runtime resource or network-loading call.");
 }
 if (entries.length !== 1 || entries[0] !== "index.html") {
   throw new Error("dist must contain only index.html after packing. Found: " + entries.join(", "));
