@@ -77,7 +77,7 @@ Do not transfer Type B or Type C seating, wheel finish, transmission, or damper 
 
 Manufacturer announcement confirms the Type A equipment above. The GAZOO catalogue confirms the basic dimensions, front-engine/rear-drive vehicle category, suspension, brakes, wheels, engine output, and transmission.
 
-The following visual traits are part of the supplied model's later geometry audit, not proof of Type A-specific equipment: long low coupe proportions, retractable headlamp assemblies, sculpted front fenders, curved glass, separate front and rear bumper surfaces, rear spoiler, rear combination lamps, and a detailed cockpit. The supplied glTF must be compared against independent reference photographs before any shape correction is approved.
+The following broad visual traits are observations to verify across independent reference photographs and the separate development-only glTF viewer, not proof of Type A-specific equipment: long low coupe proportions, retractable headlamp assemblies, sculpted front fenders, curved glass, separate front and rear bumper surfaces, rear spoiler, rear combination lamps, and a detailed cockpit. Use observations to inform written design notes only. Do not copy source mesh geometry, node hierarchy, textures, or material maps into the Asterion.
 
 Type A-specific interior priorities for the game:
 - Two-seat cockpit layout.
@@ -102,7 +102,7 @@ Type A-specific interior priorities for the game:
 3. Use FR, five-speed manual, and a standard limited-slip differential as the baseline handling configuration.
 4. Model Type A's two-seat red bucket cockpit, gunmetal BBS-inspired wheel style, drilled ventilated brakes, braided brake hoses, and Bilstein-style damper setup as distinct features.
 5. Use the official manufacturer release as the authority for Type A vs B/C equipment differences.
-6. The fictional Asterion 13R must receive original game naming and a fictional badge. The Mazda model is credited as a third-party source asset and must not appear as a licensed Mazda vehicle in the game's fictional brand roster.
+6. The fictional Asterion 13R must receive original game naming, a distinct silhouette, independently designed body sections and parts, and a fictional badge. The supplied glTF is a visual-only reference, never a source mesh or production asset; its attribution remains in repository provenance documentation.
 
 ## Source notes
 

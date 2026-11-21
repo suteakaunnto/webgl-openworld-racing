@@ -43,7 +43,7 @@ No real-world manufacturer logo or badge is to be copied. The manufacturers abov
 | 16 | Ternion Works | Morrow 72 | Historic Rally | TW-M72 | Classic rally car | AWD |
 | 17 | Veyra Rotary Atelier | Asterion 13R | Circuit RS | VA-13R | Rotary FR sports coupe; RX-7 research-derived hero vehicle | FR |
 
-The Asterion 13R is an original in-game vehicle. It must not be sold or described as a Mazda, RX-7, FD3S, or Spirit R. Its visual development may use the supplied CC BY 4.0 model as a reference and source mesh, subject to the attribution and separate trademark-removal work documented elsewhere.
+The Asterion 13R is an original in-game vehicle. It must not be sold or described as a Mazda, RX-7, FD3S, or Spirit R. The supplied CC BY 4.0 model may be viewed only as a development-time visual reference. No source mesh, node hierarchy, texture, or material map may be copied into the game; all production geometry and materials must be authored independently.
 
 ## World locations
 

@@ -67,7 +67,8 @@ The user clarified that the supplied RX-7 3D model should be used only as a visu
 - Second CI run installed dependencies, then TypeScript reported strict-null errors for DOM element variables.
 - A required-element helper was added to fix the nullability issue.
 - Current M0 CI run passed TypeScript and esbuild but stopped in pack.mjs because a post-replacement placeholder check treated inserted bundle text as a possible unresolved marker. The packer now validates exactly one placeholder in the template before replacement and inserts the bundle through a callback.
-- npm install, TypeScript typecheck, bundle, final HTML generation, local offline open, and visual browser validation have not been run in this chat environment.
+- GitHub Actions ran npm install successfully. TypeScript typecheck and esbuild bundling passed on commit a532325fa532b6703ebbf951bfbf8622143f7e0c; the first reference-only packer run failed at its post-replacement placeholder assertion. A fix is committed in 44f3f57aab2bbbee96d97157725f68fb87d09272 and its rerun is pending.
+- Local offline open and visual browser validation have not been performed.
 - The procedural vehicle-form viewer is an early shape study, not a finished production vehicle.
 - The reference inspector is a dev-only page and must be tested locally via HTTP server.
 - No actual PC, smartphone, Xbox, or Switch Pro controller test has been performed.
@@ -83,7 +84,7 @@ The user clarified that the supplied RX-7 3D model should be used only as a visu
 
 ## Next actions
 
-1. Observe the latest GitHub Actions result and fix TypeScript/build/packer errors.
+1. Confirm the latest GitHub Actions run on commit 44f3f57aab2bbbee96d97157725f68fb87d09272 and fix any remaining errors.
 2. Open the procedural vehicle dist/index.html in a WebGL2 browser with network disabled.
 3. Open tools/reference-inspector.html locally and perform a visual survey of the source reference.
 4. Create a written reference observation sheet for hood, fenders, glass, wheel arches, cabin, and overall stance.
