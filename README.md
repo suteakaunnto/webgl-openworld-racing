@@ -20,7 +20,7 @@ A browser-based open-world racing project built with Three.js, TypeScript, and W
 4. Open the extracted `index.html` in Chrome or Microsoft Edge.
 5. No Node.js or local server is required when running the packaged HTML. Use a browser with WebGL2 support.
 
-The current successful artifact is the earlier reference-free viewer build. The Japanese-first, source-model-integrated build is being rebuilt on the new development branch and will have its own Actions artifact once CI passes.
+The latest successful integrated build is [GitHub Actions run 44884457463](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44884457463), commit `16765eb1f2f9c19297b91fd6a60b1ba4422eb6ae`. It produces one standalone `dist/index.html` (10,213,005 bytes) with the licensed vehicle model, binary geometry and local textures embedded.
 
 ## Local development
 
