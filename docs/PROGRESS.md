@@ -4,7 +4,7 @@ Last updated: 2026-11-21 (JST)
 Working branch: dev/m1-vehicle-motion-test
 Base branch: dev/m0-foundation
 Base commit: 95c3009ae8c6e8ebb0495ad219068241d6c8ce23
-Latest verified commit: pending M1 GitHub Actions run
+Latest verified commit: 26cc3dfc2150311056b05fba4d10460025a8aa78
 
 ## Milestone status
 
@@ -14,8 +14,7 @@ Latest verified commit: pending M1 GitHub Actions run
 | M0 — licensed full-source vehicle integration | Implemented in source | Complete 469-node / 152-mesh scene is used; all parts, badges, material assignments and textures retained; only paint colour and display scale/position changed |
 | M0 — Japanese-first interface | Implemented in source | Japanese default, English toggle, controls, status, model statistics, errors and credits localized |
 | M0 — offline single-HTML packer | CI verified | glTF, binary geometry and local textures embedded as data URIs; output validator passed |
-| M0 — offline single-HTML packer | CI verified | glTF, binary geometry and local textures embedded as data URIs; output validator passed |
-| M1 — vehicle-part motion test rig | Implemented in source; CI pending | Wheel pivots, front steering, pop-up headlights, spotlights, emissive head/tail/indicator lamps and Japanese/English test controls |
+| M1 — vehicle-part motion test rig | CI verified | Four wheel pivots, front steering, two pop-up assemblies, spotlights, brake/indicator emission, Japanese/English test controls and automated source-node rig test |
 | M2–M9 | Not started | Must not be represented as implemented |
 
 ## Updated source-model permission
@@ -41,11 +40,10 @@ Required author/source/license attribution and modification disclosure are inclu
 - Latest verified package: dist/index.html, 10,213,531 bytes; artifact ZIP: 5,795,302 bytes.
 - The output checker confirmed a single HTML file, embedded source geometry/textures, complete Japanese/English attribution and no runtime network dependencies.
 - TypeScript typecheck, esbuild bundle, source-model packaging, and the output validator must all pass before treating this branch as build-verified.
-- M1 motion-rig TypeScript compilation, automated source-node rig test, standalone packaging and static output checks passed in GitHub Actions run 44887358480.
-- The automated rig test reconstructs the original 469-node hierarchy and verifies four wheel pivots, two pop-up pivots, transform changes, spotlight activation, brake-lamp emission and turn-signal emission.
+- M1 motion-rig TypeScript compilation, automated source-node rig test, standalone packaging and static output checks passed in GitHub Actions run 44887808911 on commit 26cc3dfc2150311056b05fba4d10460025a8aa78.
+- The automated rig test reconstructs the original 469-node / 152-mesh hierarchy and verifies four wheel pivots, two pop-up pivots, wheel-spin and steering transform changes, pop-up motion, spotlight activation, brake-lamp emission and turn-signal emission.
 - The run produced `dist/index.html` at 10,226,169 bytes and uploaded artifact `kitebound-m0-standalone-html` (5,799,681-byte ZIP).
-- Local visual rendering remains unverified: headless Chromium in the current container could not initialize a graphics backend, so actual pivot alignment, lamp appearance and beam direction still need the user's browser check.
-- Local browser/offline visual testing has not yet been performed; in particular, actual pivot alignment, wheel rotation axes, pop-up hinge direction, beam direction and lamp material mapping still require visual confirmation.
+- Local visual rendering remains unverified: headless Chromium in the current container could not initialize a graphics backend. Actual pivot alignment, wheel rotation axes, pop-up hinge direction, lamp appearance and beam direction still need confirmation in the user's browser.
 - The current output is a vehicle-form viewer, not yet a playable racing game.
 - No driving physics, open world, traffic AI, race events, full garage, controller validation, or finished roster are implemented yet.
 - The 40,000-line minimum / 48,000-line target remain long-term scope goals, not current progress.
@@ -62,15 +60,15 @@ Required author/source/license attribution and modification disclosure are inclu
 
 ## M1 motion-test actions
 
-1. Wait for the branch GitHub Actions run to finish and fix any compile/package failure.
-2. Download the M1 standalone HTML artifact and run it in Chrome/Edge with the network disabled.
+1. Download the artifact from [M1 GitHub Actions run 44887808911](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44887808911).
+2. Extract `kitebound-m0-standalone-html` and open `index.html` in Chrome/Edge.
 3. Confirm four wheel assemblies spin without the calipers rotating with them.
 4. Test front steering, both pop-up headlights, headlight beams, brake lamps, left/right indicators and hazard lights.
 5. Report any visual mismatch so the pivots/material classification can be tuned before adding driving physics.
 
 ## Next actions
 
-1. Download the latest passing artifact from run 44885125797 and open it in Chrome/Edge with the network disabled.
+1. Perform the manual browser visual test from the M1 checklist with the network disabled.
 2. Inspect the complete source model from front, rear, side, top and three-quarter views; check all parts, badge visibility and camera framing.
 3. Confirm the full-model use statement and vecarz / CC BY 4.0 credits in Japanese and English.
 4. Measure draw calls, triangle count, texture memory and load time before starting the open-world environment.

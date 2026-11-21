@@ -16,7 +16,7 @@ A browser-based open-world racing project built with Three.js, TypeScript, and W
 
 The `dev/m1-vehicle-motion-test` branch adds an interactive test panel to the standalone viewer. The panel can test four wheel assemblies, front steering, pop-up headlight movement, headlight beams/emission, brake-lamp emission and left/right/hazard indicators. The speed is a fixed motion-test speed; driving physics and speed-linked simulation are not part of this test.
 
-The verification workflow also runs an automated rig test against the original glTF node hierarchy before uploading the artifact. Use the branch's GitHub Actions artifact after its workflow succeeds. Open the Actions run linked from the branch, download `kitebound-m0-standalone-html`, extract it, and open `index.html` in a WebGL2-compatible browser. Controls become enabled after the model loads. See `docs/VEHICLE_MOTION_TEST.md` for the checks and known limitations.
+The verification workflow also runs an automated rig test against the original glTF node hierarchy before uploading the artifact. The latest M1 verification is [GitHub Actions run 44887808911](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44887808911) on commit `26cc3dfc2150311056b05fba4d10460025a8aa78`; all build, rig-test and packaging checks passed. Under **Artifacts**, download `kitebound-m0-standalone-html`, extract the ZIP, and open `index.html` in a WebGL2-compatible browser. Controls become enabled after the model loads. See `docs/VEHICLE_MOTION_TEST.md` for the test procedure and known limitations.
 
 ## Run the previous successful M0 GitHub Actions build
 
