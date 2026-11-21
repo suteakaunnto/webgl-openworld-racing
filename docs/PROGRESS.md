@@ -41,7 +41,10 @@ Required author/source/license attribution and modification disclosure are inclu
 - Latest verified package: dist/index.html, 10,213,531 bytes; artifact ZIP: 5,795,302 bytes.
 - The output checker confirmed a single HTML file, embedded source geometry/textures, complete Japanese/English attribution and no runtime network dependencies.
 - TypeScript typecheck, esbuild bundle, source-model packaging, and the output validator must all pass before treating this branch as build-verified.
-- M1 motion-rig TypeScript compilation, standalone packaging and static output checks are pending the first branch Actions run.
+- M1 motion-rig TypeScript compilation, automated source-node rig test, standalone packaging and static output checks passed in GitHub Actions run 44887358480.
+- The automated rig test reconstructs the original 469-node hierarchy and verifies four wheel pivots, two pop-up pivots, transform changes, spotlight activation, brake-lamp emission and turn-signal emission.
+- The run produced `dist/index.html` at 10,226,169 bytes and uploaded artifact `kitebound-m0-standalone-html` (5,799,681-byte ZIP).
+- Local visual rendering remains unverified: headless Chromium in the current container could not initialize a graphics backend, so actual pivot alignment, lamp appearance and beam direction still need the user's browser check.
 - Local browser/offline visual testing has not yet been performed; in particular, actual pivot alignment, wheel rotation axes, pop-up hinge direction, beam direction and lamp material mapping still require visual confirmation.
 - The current output is a vehicle-form viewer, not yet a playable racing game.
 - No driving physics, open world, traffic AI, race events, full garage, controller validation, or finished roster are implemented yet.

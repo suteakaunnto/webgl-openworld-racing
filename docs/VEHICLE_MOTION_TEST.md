@@ -33,6 +33,10 @@ This is a component-motion proof using the supplied full RX-7 glTF scene. It is 
 8. Test left, right, hazard and off; verify the amber lamps flash on the corresponding side.
 9. Repeat with the network disabled to confirm the standalone file still loads.
 
+## Automated rig test
+
+`npm run test-motion` reconstructs the original glTF node hierarchy and uses the source accessors' bounding boxes to test the actual named part groups without requiring a GPU. It asserts that all four wheel pivots and both pop-up headlight pivots are found, that wheel rotation and front steering change their transforms, that pop-up opening changes its transform and enables a spotlight, and that brake/indicator inputs change the expected lamp emission values. This checks rig logic and source-node matching; it does not replace a visual browser test.
+
 ## Known limitations
 
 - The wheel-spin test uses a fixed speed, not vehicle speed.

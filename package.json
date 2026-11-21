@@ -13,7 +13,8 @@
     "pack": "node scripts/pack.mjs",
     "build": "npm run typecheck && npm run bundle && npm run pack",
     "check-output": "node scripts/check-output.mjs",
-    "verify": "npm run build && npm run check-output"
+    "test-motion": "node scripts/test-motion-rig.mjs",
+    "verify": "npm run build && npm run test-motion && npm run check-output"
   },
   "dependencies": {
     "three": "0.187.0"
