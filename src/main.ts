@@ -69,7 +69,7 @@ function renderModelInfo(): void {
     `${t("modelMeshes")}: ${stats.meshes.toLocaleString(numberLocale)}`,
     `${t("modelTriangles")}: ${stats.triangles.toLocaleString(numberLocale)}`,
     `${t("modelDimensions")}: ${modelSize.x.toFixed(2)} × ${modelSize.y.toFixed(2)} × ${modelSize.z.toFixed(2)} m`
-  ].join("\\n");
+  ].join("\n");
 }
 
 languageButton.addEventListener("click", () => {
@@ -87,7 +87,7 @@ try {
   currentStatus = "failed";
   status.textContent = t(currentStatus);
   errorPanel.style.display = "block";
-  errorPanel.textContent = t("errorWebgl") + "\\n" + String(error);
+  errorPanel.textContent = t("errorWebgl") + "\n" + String(error);
   throw error;
 }
 
@@ -228,7 +228,7 @@ function showModelError(error: unknown): void {
   currentStatus = "failed";
   status.textContent = t(currentStatus);
   errorPanel.style.display = "block";
-  errorPanel.textContent = t("errorParseModel") + "\\n" + String(error);
+  errorPanel.textContent = t("errorParseModel") + "\n" + String(error);
 }
 
 if (!modelData?.textContent?.trim()) {
