@@ -63,6 +63,7 @@ Base commit: 736ed4b785852f196e9e0051c2568ab9106a62fa
 - esbuild: not run in this session.
 - Final dist/index.html: not generated or browser-tested in this session.
 - First GitHub Actions run stopped before dependency installation because setup-node npm caching expected a lockfile that had not yet been generated. This was a workflow configuration issue, not a compiler or game-code result; the cache setting is being removed and CI rerun.
+- Second CI run successfully installed dependencies but TypeScript found four strict-null errors for DOM references captured in callbacks. The element lookup now uses a required-element helper; a fresh CI run will verify the fix.
 - WebGL2 loading, offline file opening, and visual correctness: pending CI/browser validation.
 
 ## Known limitations and open risks

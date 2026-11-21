@@ -8,16 +8,20 @@
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
-const viewport = document.querySelector<HTMLElement>("#viewport");
-const status = document.querySelector<HTMLElement>("#status");
-const modelInfo = document.querySelector<HTMLElement>("#model-info");
-const errorPanel = document.querySelector<HTMLElement>("#error");
-const rotateButton = document.querySelector<HTMLButtonElement>("#rotate-toggle");
-const resetButton = document.querySelector<HTMLButtonElement>("#reset-view");
-
-if (!viewport || !status || !modelInfo || !errorPanel || !rotateButton || !resetButton) {
-  throw new Error("M0 viewer markup is incomplete.");
+function requireElement<T extends Element>(selector: string): T {
+  const element = document.querySelector<T>(selector);
+  if (!element) {
+    throw new Error("M0 viewer markup is missing required element: " + selector);
+  }
+  return element;
 }
+
+const viewport = requireElement<HTMLElement>("#viewport");
+const status = requireElement<HTMLElement>("#status");
+const modelInfo = requireElement<HTMLElement>("#model-info");
+const errorPanel = requireElement<HTMLElement>("#error");
+const rotateButton = requireElement<HTMLButtonElement>("#rotate-toggle");
+const resetButton = requireElement<HTMLButtonElement>("#reset-view");
 
 let renderer: THREE.WebGLRenderer;
 try {
