@@ -1,16 +1,16 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Development Reference Inspector — Not a Game Build</title>
+  <title>開発用3Dモデル確認ツール — ゲーム本体とは別</title>
   <style>
-    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c12;color:#e8f0f7;font:13px system-ui,sans-serif}
+    html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#080c12;color:#e8f0f7;font:13px "Yu Gothic UI",Meiryo,system-ui,sans-serif}
     #view{position:fixed;inset:0}canvas{display:block;width:100%;height:100%}
-    #panel{position:fixed;left:16px;bottom:16px;max-width:420px;padding:14px 16px;border:1px solid #385064;border-radius:10px;background:#07111ddd;backdrop-filter:blur(12px)}
-    h1{font-size:13px;letter-spacing:.1em;margin:0 0 8px}p{font-size:11px;line-height:1.5;color:#9db0c0;margin:0 0 8px}
-    #stats{font:11px/1.6 ui-monospace,monospace;white-space:pre-wrap;color:#c9d8e4}
-    #warning{color:#ffb8a8;font-weight:700}
+    #panel{position:fixed;left:16px;bottom:16px;max-width:440px;padding:14px 16px;border:1px solid #385064;border-radius:10px;background:#07111ddd;backdrop-filter:blur(12px)}
+    h1{font-size:14px;letter-spacing:.05em;margin:0 0 8px}p{font-size:11px;line-height:1.7;color:#b1c0cc;margin:0 0 8px}
+    #stats{font:11px/1.7 ui-monospace,monospace;white-space:pre-wrap;color:#c9d8e4}
+    #warning{color:#ffcf9f;font-weight:700}
     #error{position:fixed;inset:40% 16px auto;padding:15px;background:#320d12;color:#ffd8dc;white-space:pre-wrap;display:none}
   </style>
   <script type="importmap">
@@ -25,10 +25,10 @@
 <body>
   <main id="view"></main>
   <aside id="panel">
-    <h1>REFERENCE INSPECTOR / DEVELOPMENT ONLY</h1>
-    <p id="warning">This source model is NOT part of the game and must never be copied into the production vehicle.</p>
-    <p>Use the model only to observe general proportions, surface flow, component placement, glass curvature, wheel-arch relationships, and material separation. Create new geometry and new materials independently.</p>
-    <div id="stats">Loading local reference asset…</div>
+    <h1>開発用モデル確認ツール</h1>
+    <p id="warning">この元モデルはCC BY 4.0のライセンス表示と作者クレジットを維持したうえで、ゲーム用車両の一部形状・素材のベースとして利用できます。</p>
+    <p>ボンネット、前後フェンダー、バンパー、ドア、ガラス、ライト、ホイール、内装の形状と配置を確認してください。ゲームに使用する際はMazdaの実ロゴやブランド表示を隠し、変更内容をクレジットに記録します。</p>
+    <div id="stats">ローカルの3Dモデルを読み込んでいます…</div>
   </aside>
   <pre id="error"></pre>
   <script type="module">
@@ -85,22 +85,23 @@
         nodes++;
         if (!object.isMesh) return;
         meshes++;
-        const count = object.geometry.index?.count ?? object.geometry.getAttribute("position")?.count ?? 0;
+        const mesh = object;
+        const count = mesh.geometry.index?.count ?? mesh.geometry.getAttribute("position")?.count ?? 0;
         triangles += Math.floor(count / 3);
-        if (Array.isArray(object.material)) object.material.forEach((m) => materials.add(m));
-        else if (object.material) materials.add(object.material);
+        if (Array.isArray(mesh.material)) mesh.material.forEach((m) => materials.add(m));
+        else if (mesh.material) materials.add(mesh.material);
       });
       stats.textContent =
-        "NODES      " + nodes + "\n" +
-        "MESHES     " + meshes + "\n" +
-        "MATERIALS  " + materials.size + "\n" +
-        "TRIANGLES  " + triangles.toLocaleString() + "\n" +
-        "BOUNDS     " + size.x.toFixed(3) + " × " + size.y.toFixed(3) + " × " + size.z.toFixed(3) + " raw units\n" +
-        "SOURCE     DEV REFERENCE ONLY";
+        "ノード数      " + nodes + "\n" +
+        "メッシュ数    " + meshes + "\n" +
+        "マテリアル数  " + materials.size + "\n" +
+        "三角形数      " + triangles.toLocaleString("ja-JP") + "\n" +
+        "外形寸法      " + size.x.toFixed(3) + " × " + size.y.toFixed(3) + " × " + size.z.toFixed(3) + "\n" +
+        "出典          CC BY 4.0 / vecarz";
     }, undefined, (cause) => {
       error.style.display = "block";
-      error.textContent = "Could not load the development reference model.\n" + String(cause) +
-        "\n\nRun a local web server from the repository root, then open /tools/reference-inspector.html.";
+      error.textContent = "開発用モデルを読み込めませんでした。\n" + String(cause) +
+        "\n\nリポジトリのルートからローカルWebサーバーを起動して、/tools/reference-inspector.html を開いてください。";
     });
 
     addEventListener("resize", () => {

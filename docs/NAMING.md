@@ -41,9 +41,9 @@ No real-world manufacturer logo or badge is to be copied. The manufacturers abov
 | 14 | Orison Coachcraft | Longreach GT | Grand Touring | OC-LG4 | Four-door GT | AWD |
 | 15 | Ternion Works | Dunewren | Dune | TW-DW1 | Off-road buggy | RWD |
 | 16 | Ternion Works | Morrow 72 | Historic Rally | TW-M72 | Classic rally car | AWD |
-| 17 | Veyra Rotary Atelier | Asterion 13R | Circuit RS | VA-13R | Rotary FR sports coupe; RX-7 research-derived hero vehicle | FR |
+| 17 | Veyra Rotary Atelier | Asterion 13R | Circuit RS | VA-13R | Rotary FR sports coupe; licensed RX-7 model used as an initial body-form base | FR |
 
-The Asterion 13R is an original in-game vehicle. It must not be sold or described as a Mazda, RX-7, FD3S, or Spirit R. The supplied CC BY 4.0 model may be viewed only as a development-time visual reference. No source mesh, node hierarchy, texture, or material map may be copied into the game; all production geometry and materials must be authored independently.
+Asterion 13R is the game's fictional vehicle identity. Its M0 prototype reuses and modifies parts of the supplied CC BY 4.0 RX-7 model to achieve a higher-quality starting silhouette. It is not sold or described as an official Mazda/RX-7/FD3S/Spirit R product. Source credits and modification notices are mandatory. Do not show real manufacturer badges or imply Mazda endorsement.
 
 ## World locations
 

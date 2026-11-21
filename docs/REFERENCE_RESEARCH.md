@@ -77,7 +77,9 @@ Do not transfer Type B or Type C seating, wheel finish, transmission, or damper 
 
 Manufacturer announcement confirms the Type A equipment above. The GAZOO catalogue confirms the basic dimensions, front-engine/rear-drive vehicle category, suspension, brakes, wheels, engine output, and transmission.
 
-The following broad visual traits are observations to verify across independent reference photographs and the separate development-only glTF viewer, not proof of Type A-specific equipment: long low coupe proportions, retractable headlamp assemblies, sculpted front fenders, curved glass, separate front and rear bumper surfaces, rear spoiler, rear combination lamps, and a detailed cockpit. Use observations to inform written design notes only. Do not copy source mesh geometry, node hierarchy, textures, or material maps into the Asterion.
+Broad visual traits to check against independent reference photographs and the source model include long low coupe proportions, sculpted hood and front fenders, curved glass, bumper transitions, rear spoiler, rear combination lamps, and cockpit component placement.
+
+The source model can now be reused under its stated CC BY 4.0 terms as a partial geometry/material base for the Asterion 13R. The source title/author/source/license must be credited, modifications must be disclosed, and source Mazda emblems must not be presented as part of the fictional game's identity.
 
 Type A-specific interior priorities for the game:
 - Two-seat cockpit layout.
@@ -100,13 +102,5 @@ Type A-specific interior priorities for the game:
 1. Use 4.285 × 1.760 × 1.230 m, 2.425 m wheelbase, 1.460 m front and rear track, and 1,270 kg as the first engineering reference values.
 2. Use a two-rotor, twin-turbo power curve with the 280 PS / 6,500 rpm and 314 N·m / 5,000 rpm reference points; interpolate a plausible curve only as a game-tuning model and label it as simulated.
 3. Use FR, five-speed manual, and a standard limited-slip differential as the baseline handling configuration.
-4. Model Type A's two-seat red bucket cockpit, gunmetal BBS-inspired wheel style, drilled ventilated brakes, braided brake hoses, and Bilstein-style damper setup as distinct features.
-5. Use the official manufacturer release as the authority for Type A vs B/C equipment differences.
-6. The fictional Asterion 13R must receive original game naming, a distinct silhouette, independently designed body sections and parts, and a fictional badge. The supplied glTF is a visual-only reference, never a source mesh or production asset; its attribution remains in repository provenance documentation.
-
-## Source notes
-
-- Mazda Motor Corporation, Japanese release 1684, 2002-03-25 — primary manufacturer source.
-- Mazda Motor Corporation, English release, 2002-03-25 — official translation.
-- Toyota GAZOO, RX-7 Spirit R Type A catalogue entry — secondary technical catalogue.
-- A 2002 Spirit R brochure is available at https://images.jdm-catalogues.com/mazda/rx-7/fd/type_6/mazda_rx7_fd_type_6_spirit_r/catalogue.pdf. It was consulted as an additional text reference, but its high-size PDF could not be screenshot-rendered in the current research session; visual conclusions are therefore not based on that PDF screenshot.
+4. Use Type A's two-seat red bucket-cockpit layout as the reference for the initial Asterion interior.
+5. Treat all unlisted performance details as unverified until independently sourced.

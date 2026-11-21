@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang="en">
+<html lang="ja">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080c12">
-  <meta name="description" content="KITEBOUND: ROADS OF VEYRA — original procedural vehicle-form study">
-  <title>KITEBOUND — Original Vehicle Form Study</title>
+  <meta name="description" content="KITEBOUND: ROADS OF VEYRA — Asterion 13Rの3D車両試作ビューア">
+  <title>KITEBOUND: ROADS OF VEYRA | Asterion 13R 車両試作</title>
   <style>
     :root {
       color-scheme: dark;
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      font-family: Inter, "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, ui-sans-serif, system-ui, sans-serif;
       background: #080c12;
       color: #edf3f8;
     }
@@ -23,64 +23,88 @@
       right: max(18px, env(safe-area-inset-right)); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
       pointer-events: none;
     }
-    .brand { letter-spacing: .22em; font-size: 11px; font-weight: 800; color: #d8e6f3; }
-    .subtitle { margin-top: 7px; font-size: 10px; letter-spacing: .16em; color: #8296aa; }
+    .brand { letter-spacing: .2em; font-size: 11px; font-weight: 800; color: #d8e6f3; }
+    .subtitle { margin-top: 7px; font-size: 11px; letter-spacing: .05em; color: #91a7b9; }
+    .top-meta { display: flex; align-items: center; justify-content: flex-end; gap: 8px; pointer-events: auto; }
     .status {
       border: 1px solid rgba(174, 203, 225, .22); border-radius: 999px; padding: 8px 12px;
-      background: rgba(7, 13, 21, .64); color: #a9c5d9; font-size: 10px; letter-spacing: .12em;
+      background: rgba(7, 13, 21, .72); color: #a9c5d9; font-size: 10px; letter-spacing: .04em;
     }
     .panel {
       position: fixed; z-index: 3; left: max(18px, env(safe-area-inset-left)); bottom: max(18px, env(safe-area-inset-bottom));
-      width: min(380px, calc(100vw - 36px)); padding: 16px 18px; border: 1px solid rgba(174, 203, 225, .18);
-      border-radius: 14px; background: rgba(5, 10, 17, .76); backdrop-filter: blur(16px); box-shadow: 0 18px 60px rgba(0,0,0,.24);
+      width: min(430px, calc(100vw - 36px)); max-height: min(78vh, 800px); overflow-y: auto; padding: 17px 19px;
+      border: 1px solid rgba(174, 203, 225, .18); border-radius: 14px;
+      background: rgba(5, 10, 17, .8); backdrop-filter: blur(16px); box-shadow: 0 18px 60px rgba(0,0,0,.24);
     }
-    .eyebrow { color: #82b8d5; font-size: 9px; letter-spacing: .2em; font-weight: 800; }
-    h1 { margin: 8px 0 4px; font-size: 18px; letter-spacing: .08em; font-weight: 650; }
-    .description { margin: 0; color: #8fa2b4; font-size: 11px; line-height: 1.6; }
-    #model-info { margin-top: 12px; color: #c5d5e2; font: 10px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-line; }
-    .toolbar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
+    .eyebrow { color: #82b8d5; font-size: 10px; letter-spacing: .11em; font-weight: 800; }
+    h1 { margin: 8px 0 7px; font-size: 19px; letter-spacing: .03em; font-weight: 650; }
+    .description { margin: 0; color: #b0bfcc; font-size: 12px; line-height: 1.85; }
+    #model-info { margin-top: 13px; color: #d1dee8; font: 11px/1.8 ui-monospace, "Yu Gothic UI", Meiryo, Consolas, monospace; white-space: pre-line; }
+    .toolbar { display: flex; gap: 8px; margin-top: 13px; flex-wrap: wrap; }
     button {
-      border: 1px solid rgba(151, 190, 218, .28); border-radius: 8px; padding: 8px 11px; color: #dce9f1;
-      background: rgba(76, 117, 148, .16); font: inherit; font-size: 10px; letter-spacing: .08em; cursor: pointer;
+      border: 1px solid rgba(151, 190, 218, .28); border-radius: 8px; padding: 9px 12px; color: #dce9f1;
+      background: rgba(76, 117, 148, .16); font: inherit; font-size: 11px; cursor: pointer;
     }
     button:hover { background: rgba(76, 117, 148, .3); }
+    button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px solid #9bd7ff; outline-offset: 3px; }
     #hint {
       position: fixed; z-index: 2; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom));
-      color: rgba(198, 216, 230, .58); font-size: 10px; letter-spacing: .08em; text-align: right; pointer-events: none;
+      color: rgba(198, 216, 230, .7); font-size: 11px; text-align: right; pointer-events: none;
     }
+    details { margin-top: 14px; border-top: 1px solid rgba(174,203,225,.15); padding-top: 10px; }
+    summary { cursor: pointer; color: #9fc2d9; font-size: 11px; }
+    .credits { margin-top: 9px; color: #9fb0be; font-size: 10px; line-height: 1.75; overflow-wrap: anywhere; }
+    .credits p { margin: 6px 0; }
+    .credits a { color: #a9d7f1; }
     #error {
       display: none; position: fixed; z-index: 5; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
-      width: min(560px, calc(100vw - 36px)); padding: 18px; border: 1px solid #a44e52; border-radius: 12px;
-      background: rgba(30, 8, 12, .94); color: #ffdfe0; font: 12px/1.6 ui-monospace, monospace; white-space: pre-wrap;
+      width: min(560px, calc(100vw - 36px)); max-height: 60vh; overflow: auto; padding: 18px;
+      border: 1px solid #a44e52; border-radius: 12px; background: rgba(30, 8, 12, .96);
+      color: #ffdfe0; font: 12px/1.7 ui-monospace, "Yu Gothic UI", Meiryo, monospace; white-space: pre-wrap;
     }
     @media (max-width: 640px) {
-      .topbar { flex-direction: column; }
-      .panel { width: min(340px, calc(100vw - 36px)); }
+      .topbar { flex-direction: column; gap: 10px; }
+      .top-meta { align-self: flex-end; }
+      .panel { width: min(370px, calc(100vw - 36px)); max-height: 60vh; }
+      h1 { font-size: 16px; }
       #hint { display: none; }
     }
   </style>
 </head>
 <body>
-  <main id="viewport" aria-label="Original procedural vehicle showroom"></main>
+  <main id="viewport" data-i18n-aria-label="viewerLabel"></main>
   <header class="topbar">
     <div>
       <div class="brand">KITEBOUND / ROADS OF VEYRA</div>
-      <div class="subtitle">A WORLD BEYOND THE APEX · ORIGINAL VEHICLE GEOMETRY</div>
+      <div class="subtitle" data-i18n="brandSubtitle">頂点の先に広がる世界 · オリジナルゲーム車両</div>
     </div>
-    <div id="status" class="status">INITIALIZING WEBGL2</div>
+    <div class="top-meta">
+      <button id="language-toggle" type="button" data-i18n="languageToEnglish">English</button>
+      <div id="status" class="status" data-i18n="loading">車両モデルを読み込み中…</div>
+    </div>
   </header>
   <section class="panel">
-    <div class="eyebrow">ASTERION 13R / ORIGINAL GAME VEHICLE</div>
-    <h1>ROTARY COUPE — BODY FORM STUDY</h1>
-    <p class="description">This prototype is generated from original parametric geometry. The external RX-7 glTF is retained only as a separate development reference and is not part of this game build.</p>
-    <div id="model-info">Generating original body surfaces…</div>
+    <div class="eyebrow" data-i18n="panelEyebrow">VEYRA ROTARY ATELIER / ASTERION 13R</div>
+    <h1 data-i18n="heading">ASTERION 13R — 車両デザイン試作</h1>
+    <p class="description" data-i18n="description">本作の架空スポーツカー「Asterion 13R」の外観検討用試作です。提供されたCC BY 4.0モデルの車体形状をベースとして使用し、ゲーム向けにボディカラーや表示パーツなどを調整しています。</p>
+    <div id="model-info" aria-live="polite">モデル情報を集計しています…</div>
     <div class="toolbar">
-      <button id="rotate-toggle" type="button">PAUSE ROTATION</button>
-      <button id="reset-view" type="button">RESET VIEW</button>
+      <button id="rotate-toggle" type="button" data-i18n="pauseRotation">自動回転を一時停止</button>
+      <button id="reset-view" type="button" data-i18n="resetView">視点をリセット</button>
     </div>
+    <details>
+      <summary data-i18n="creditsHeading">3Dモデルのクレジット・ライセンス</summary>
+      <div class="credits">
+        <p data-i18n="creditsIntro">このゲーム内車両は架空の「Asterion 13R」です。実在メーカーの公式製品・公認車両ではありません。</p>
+        <p><span data-i18n="creditsBased">本作品は、</span><a href="https://sketchfab.com/3d-models/mazda-rx-7-spirit-r-type-a-2002-wwwvecarzcom-57ef6f2e2980487080b84e0b16979978" target="_blank" rel="noreferrer">Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com by vecarz</a><span data-i18n="creditsChanged">を基にしています。元モデルの車体形状・メッシュ・素材の一部を使用し、ボディカラー変更、ブランドバッジの非表示、ゲーム内表示用のスケール・配置調整を行っています。</span></p>
+        <p><span data-i18n="creditsLicense">ライセンス：</span><a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noreferrer">Creative Commons Attribution 4.0 International (CC BY 4.0)</a></p>
+        <p data-i18n="creditsDisclaimer">元モデル制作者およびMazda社による本作への後援・承認を示すものではありません。</p>
+      </div>
+    </details>
   </section>
-  <div id="hint">DRAG TO ORBIT · SCROLL TO ZOOM</div>
+  <div id="hint" data-i18n="dragZoomHint">ドラッグ：視点を回転 · ホイール：ズーム</div>
   <pre id="error" role="alert"></pre>
+  <script id="embedded-model-json" type="application/json">__EMBEDDED_MODEL_JSON__</script>
   <script>
     __APP_BUNDLE__
   </script>

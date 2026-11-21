@@ -1,108 +1,80 @@
-# RX-7 Reference Model — Research Only, Not a Game Asset
+# Licensed Vehicle Model — Source Reuse and Game Integration
 
-Status: source inventory and static glTF inspection completed. The model is not imported into the game, not used as player or AI vehicle geometry, not modified into a derived game mesh, and not embedded in the final HTML.
+Status: the user has explicitly changed the earlier reference-only restriction. The supplied Mazda RX-7 Spirit R Type A glTF may now be used as a licensed geometry/material base for selected parts of the fictional Asterion 13R.
 
-## Confirmed use policy
+## Current rule
 
-The supplied mazda_rx-7_spirit_r_type_a_2002__www.vecarz.com folder is a separate development reference library. Use it only to examine broad visual and engineering references such as:
+- The supplied source model is no longer restricted to visual observation.
+- Selected source vehicle meshes and materials may be reused as-is or modified where that produces a materially better result than rebuilding the surfaces procedurally.
+- The current M0 viewer loads the original vehicle model as its first high-quality body-form baseline, then applies game-side adjustments: car-paint colour, hiding source badge/manufacturer-mark groups, and scale/position fitting.
+- Original source files remain unchanged in the repository. The packer reads them and embeds copies into the standalone HTML.
+- Required CC BY 4.0 attribution, source link, license link, and modification disclosure are mandatory in the game credits and repository docs.
+- Never imply that Mazda or the original model author endorses the game.
+- Keep Mazda emblems and visible manufacturer branding out of the fictional in-game identity. Use the fictional Veyra Rotary Atelier and Asterion 13R names.
 
-- Overall coupe proportions and stance.
-- Hood / bonnet length, crown, and transition into the front fenders.
-- Fender volume and wheel-arch clearance.
-- Roof, windshield, side-glass, and rear-hatch surface relationships.
-- Bumper and side-sill separation.
-- General placement and scale relationships of lamps, mirrors, wheels, and cabin details.
-- Material categories such as painted metal, glass, rubber, and unpainted trim.
-
-The source model must not be copied, traced vertex-for-vertex, re-skinned, decimated into game LODs, rigged as a playable car, or shipped as part of the game. Do not use its mesh data or textures as the basis of production geometry/materials.
-
-The production vehicle inspired by the research is the fictional Veyra Rotary Atelier Asterion 13R. It must have its own proportions, cross-sections, surface transitions, lamps, trim, wheel design, cabin, material maps, and badge. It is a rotary-powered FR sports coupe concept, not a Mazda or an in-game licensed RX-7.
-
-## Source folder — preserved unchanged
+## Source asset
 
 Repository folder:
-mazda_rx-7_spirit_r_type_a_2002__www.vecarz.com/
 
-The original source files are retained for reference and license provenance. At the time of inventory there were 28 files:
+    mazda_rx-7_spirit_r_type_a_2002__www.vecarz.com/
 
-- scene.gltf — 396,160 bytes
-- scene.bin — 2,934,308 bytes
-- license.txt — 796 bytes
-- textures/ — 25 PNG files
+Original files include:
+- `scene.gltf` — glTF 2.0 scene
+- `scene.bin` — geometry buffer
+- `license.txt` — original license and required attribution
+- `textures/` — source PNG textures
 
-## Static glTF inventory
+Source inventory at the initial audit:
+- 469 nodes
+- 152 meshes
+- 29 materials
+- 25 textures
+- 25 images
+- glTF 2.0
+- glTF binary buffer: 2,934,308 bytes
+- scene.gltf: 396,160 bytes
 
-- glTF version: 2.0
-- Generator: Sketchfab-16.75.0
-- Scenes: 1
-- Nodes: 469
-- Meshes: 152
-- Materials: 29
-- Textures: 25
-- Images: 25
-- Buffer URI: scene.bin
-- Extensions used: KHR_materials_specular, KHR_materials_clearcoat, KHR_materials_transmission
-- Asset extras identify title, author vecarz, Sketchfab source, and CC BY 4.0.
+Key component naming found in the glTF includes Hood6, FenderFR6, FenderFL6, FendersR6, BumperF6, BumperR6, Boot6, DoorL4, DoorR4, Glass6, Door glass, Boot glass, mirrors, lamps, spoiler, wheels and cockpit parts. These can be selectively retained, replaced, or reworked as the Asterion design develops.
 
-This metadata is useful to understand what the reference contains; it is not a reason to load it in the game runtime.
+## License
 
-## Static texture and component inventory
+The original `license.txt` declares CC-BY-4.0 and says the author must be credited; commercial use is allowed.
 
-The 25 texture filenames and source material names are retained in the original asset directory. They may be enumerated in research notes to help identify which general surface categories a reference scene uses, but none of those textures may be sampled, copied, embedded, or repurposed in the game.
+Required attribution:
 
-Node names include Hood6, FenderFR6, FenderFL6, BumperF6, BumperR6, Boot6, Diffuser6, MirrorL6, MirrorR6, Spoiler6, Exhausts6, AnimatedHeadLightL6, AnimatedHeadLightR6, TailLightL6, TailLightR6, Interior5, SteeringWheel5, DoorL4, and DoorR4. These are visual-inspection clues only and must not be treated as production part definitions or copied geometry.
+This work is based on "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com" (https://sketchfab.com/3d-models/mazda-rx-7-spirit-r-type-a-2002-wwwvecarzcom-57ef6f2e2980487080b84e0b16979978) by vecarz (https://sketchfab.com/heynic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/).
 
-## Development-only inspection
+Every distributed build that contains or uses this asset must:
+1. Credit vecarz.
+2. Link to the source model.
+3. Link to CC BY 4.0.
+4. Clearly describe modifications.
+5. Avoid suggesting endorsement by the creator or Mazda.
 
-tools/reference-inspector.html is a separate local viewer for the source model. It:
-- Loads the reference over a local development server.
-- Displays bounds, node, mesh, material, and triangle counts.
-- Allows orbit inspection of the source geometry.
-- Is not imported by src/main.ts, scripts/build.mjs, or the final packer.
-- Is not included in dist/index.html.
+The CC license governs the model asset. It does not itself grant Mazda trademark rights or automatically clear other third-party rights visible in the asset. Hide/remove source brand emblems and do not present the game vehicle as an official Mazda model.
 
-Run from the repository root:
+## Offline single-HTML pipeline
 
-    npx http-server . -p 8080
+`scripts/pack.mjs`:
+1. Reads the game bundle and HTML template.
+2. Reads `scene.gltf` and verifies the source metadata / original license file.
+3. Converts the local glTF binary buffer and all local texture images to data URIs.
+4. Embeds the rewritten glTF JSON and application code into `dist/index.html`.
+5. Does not edit the original source asset files.
 
-Open:
+`scripts/check-output.mjs` checks:
+- The distributable is exactly one `index.html`.
+- The embedded model block exists.
+- Creator, source and CC BY 4.0 attribution are present.
+- The modification disclosure is present in Japanese and English.
+- No external runtime script, stylesheet, model, texture, or network-loaded asset is declared.
 
-    http://localhost:8080/tools/reference-inspector.html
+## Next model-quality actions
 
-This tool is for comparison and observation only. Do not copy or directly port source mesh, texture, or node hierarchy data into the game.
-
-## Production geometry process
-
-1. Research actual vehicle engineering dimensions independently and record source citations in docs/REFERENCE_RESEARCH.md.
-2. Inspect the reference model visually using the separate development inspector.
-3. Record observations as written proportions, measurements, and design notes; do not export source meshes or textures.
-4. Design the fictional Asterion 13R cross-sections from its own parameter set.
-5. Build the body with original longitudinal loft sections and custom wheel-arch cut-outs / fender surfaces.
-6. Create original cabin, windows, hood, doors, lamps, mirrors, bumpers, rims, tyres, seats, and cockpit parts.
-7. Create new procedural or authored materials. Do not use the reference PNG files as source textures.
-8. Compare the new car's general stance and broad surface-flow quality to independent public photographs and technical dimensions. Do not attempt a one-to-one body copy.
-9. Add a design-difference review before calling the fictional car complete.
-
-## Distribution firewall
-
-scripts/pack.mjs never reads the reference directory. dist/index.html must not contain:
-- scene.gltf or scene.bin
-- GLTFLoader
-- any of the source texture files
-- source model author/source identifiers
-- source model meshes, textures, or binary data
-
-scripts/check-output.mjs enforces those conditions. The final distribution contains only dist/index.html, the application, and bundled Three.js.
-
-## Not yet completed
-
-- Full visual survey of the reference from front, side, rear, top, and three-quarter angles.
-- Independently documented design-difference sheet for the Asterion.
-- High-quality original body shell and panel geometry.
-- Independent wheel-arch and fender construction.
-- Original PBR material set and original UV textures.
-- A production cockpit with two original seats and controls.
-- Final vehicle dimensions and proportion validation.
-- Original game-vehicle rigging and driving integration.
-
-Do not mark those tasks complete until they have been implemented and visually checked.
+1. Review the integrated model from front, rear, side, top, and all three-quarter angles.
+2. Identify which source parts should remain untouched and which should be reshaped for the Asterion identity.
+3. Replace/hide all remaining source emblems and visible real-manufacturer marks.
+4. Add original Asterion details: badges, lamps where needed, trim, aero, interior accents and materials.
+5. Create an explicit parts register marking each component as reused, modified, or original.
+6. Reduce model draw calls and texture size for the intended PC and mobile performance targets.
+7. Create LODs from the approved game model only; do not let automatic optimization reintroduce hidden brand marks.

@@ -1,52 +1,80 @@
 # KITEBOUND: ROADS OF VEYRA
 
-A browser-based open-world racing project, developed with Three.js, TypeScript, and WebGL2. The final distributable target is a single self-contained HTML file.
+A browser-based open-world racing project built with Three.js, TypeScript, and WebGL2. The final distributable target is a single self-contained HTML file.
 
 ## Current development line
 
 - Repository: suteakaunnto/webgl-openworld-racing
-- Working branch: dev/m0-foundation
-- Milestone: M0 — custom procedural vehicle-form viewer and offline HTML pipeline
-- The supplied RX-7 glTF is a development-only visual reference. It is not a game asset and must never be bundled into the game, instantiated as a player car, or used as copied game geometry or textures.
-- The game vehicles are authored as original parametric geometry and original materials. Reference-derived proportions are research inputs, not source meshes.
+- Working branch: dev/m0-japanese-source-model
+- Milestone: M0 — licensed vehicle-base integration, Japanese-first UI, and offline HTML pipeline
+- The supplied Mazda RX-7 Spirit R Type A glTF is licensed under CC BY 4.0 according to its preserved `license.txt`.
+- The project now permits selected source vehicle meshes and materials to be reused and modified as a base for the fictional Asterion 13R. The current M0 viewer uses the source vehicle model as its initial body-form base, recolours paint materials, hides visible source badge groups, and fits it to the viewer.
+- Required creator attribution, source link, CC BY 4.0 link, and a modification notice are provided in the in-game credits panel and `docs/ASSET_CREDITS.md`.
+- Mazda logos and trademarks are not copied into the fictional game identity. No manufacturer endorsement is implied.
 
-## Local requirements
+## Run the successful GitHub Actions build
+
+1. Open the [successful M0 GitHub Actions run](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44883335459).
+2. Under **Artifacts**, download `kitebound-m0-standalone-html`.
+3. Extract the ZIP.
+4. Open the extracted `index.html` in Chrome or Microsoft Edge.
+5. No Node.js or local server is required when running the packaged HTML. Use a browser with WebGL2 support.
+
+The current successful artifact is the earlier reference-free viewer build. The Japanese-first, source-model-integrated build is being rebuilt on the new development branch and will have its own Actions artifact once CI passes.
+
+## Local development
+
+Requirements:
 
 - Node.js 20 or newer
 - npm
 - A modern browser with WebGL2
 
-Install dependencies with npm install.
+Install dependencies:
 
-Build and validate the standalone HTML with npm run verify.
+    npm install
 
-The build writes dist/index.html. It embeds the bundled application only. It must not contain the RX-7 glTF, scene.bin, reference textures, GLTFLoader, external URLs, or any runtime network dependency.
+Build and validate the single-file HTML:
 
-For a development-only view of the supplied reference model, start a local server at the repository root:
+    npm run verify
+
+The build writes `dist/index.html`. The packer reads the source glTF and its local binary/PNG dependencies, rewrites those resources to data URIs, and embeds them into the standalone HTML. The runtime makes no CDN or model-asset request.
+
+For a development-only view of the source model inventory, run a local server from the repository root:
 
     npx http-server . -p 8080
 
-Then open http://localhost:8080/tools/reference-inspector.html
+Then open:
 
-The reference inspector is outside the production build and is not included in dist/index.html. Keep the original model folder and its license.txt unchanged.
+    http://localhost:8080/tools/reference-inspector.html
 
-Do not treat a successful TypeScript build as proof that every browser, device, or controller works. Record actual runtime checks in docs/PROGRESS.md.
+Keep the original downloaded asset folder and its original `license.txt` unchanged for provenance. The game build packages a copy of its model data inside `dist/index.html`; it does not modify the source files.
+
+## Japanese localization
+
+- Japanese is the default display language.
+- The current viewer includes an English/Japanese switch.
+- Player-visible labels, status messages, errors, model statistics, controls, credits and attribution are translated.
+- New game menus, tutorials, race notifications, settings and HUD must add Japanese and English strings to `src/i18n.ts`.
+- See `docs/LOCALIZATION.md`.
 
 ## Project decisions
 
 - Three.js + WebGL2, TypeScript, and esbuild.
 - No runtime CDN or remote asset dependency.
 - Final distributable target: one offline HTML file.
-- Original car bodies, windows, lamps, wheels, materials, and emblems are created for this game.
-- The supplied glTF is retained only for private development reference and must not appear in the distributable game.
-- Its CC BY 4.0 attribution and source record are retained in docs/ASSET_CREDITS.md, because the reference model remains in the source repository.
-- Mazda trademarks and logos are not granted by the model's CC BY 4.0 license. Avoid reproducing real marks in the fictional game.
+- Original game manufacturers, car names, UI and world content remain fictional.
+- Licensed vehicle geometry can be reused only within its stated license terms and with the required attribution/modification notice.
+- The in-game Asterion 13R is a fictional project vehicle and is not an official Mazda product.
 
 ## Documentation
 
-- docs/PROGRESS.md — verified work and next steps
-- docs/NAMING.md — canonical fictional naming
-- docs/REFERENCE_RESEARCH.md — RX-7 Type A technical reference facts
-- docs/ASSET_INTEGRATION.md — reference-only policy and original-vehicle workflow
-- docs/ASSET_CREDITS.md — source-repository reference attribution
-- tools/reference-inspector.html — development-only visual reference tool
+- `docs/PROGRESS.md` — verified work and next steps
+- `docs/NAMING.md` — canonical fictional naming
+- `docs/REFERENCE_RESEARCH.md` — RX-7 Type A technical reference facts
+- `docs/ASSET_INTEGRATION.md` — licensed source-asset use and integration workflow
+- `docs/ASSET_CREDITS.md` — source attribution, license and modification disclosure
+- `docs/LOCALIZATION.md` — Japanese-first language policy
+- `tools/reference-inspector.html` — development-only visual asset inspector
+
+Do not treat a successful TypeScript build as proof that every browser, device, or controller works. Record actual visual runtime checks in `docs/PROGRESS.md`.

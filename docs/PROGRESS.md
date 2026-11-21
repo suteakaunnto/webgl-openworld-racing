@@ -1,93 +1,59 @@
 # Development Progress
 
 Last updated: 2026-11-21 (JST)
-Working branch: dev/m0-foundation
-Base branch: main
-Latest change: reference-only model policy
+Working branch: dev/m0-japanese-source-model
+Base branch: dev/m0-foundation
+Base commit: 95c3009ae8c6e8ebb0495ad219068241d6c8ce23
 
 ## Milestone status
 
 | Milestone | Status | Notes |
 |---|---|---|
-| M0 — repository and model audit | In progress | Repository, source asset metadata, licence, and initial Type A research checked |
-| M0 — original procedural vehicle-form viewer | Implemented in source | Updated to avoid all glTF imports; CI build passes, browser validation pending |
-| M0 — reference-only inspector | Implemented in source | Separate tools page, excluded from dist; local browser validation pending |
-| M0 — single-HTML packer | Implemented in source | CI build and reference-exclusion checks pass; local browser validation pending |
+| M0 — repository and source asset audit | Complete | glTF, 469 nodes, 152 meshes, 29 materials, 25 textures, and source license checked |
+| M0 — licensed source-model vehicle base | Implemented in source | Source car form integrated into the viewer; car paint recoloured and source badges hidden; visual browser validation pending |
+| M0 — Japanese-first interface | Implemented in source | Japanese default, English toggle, controls, status, model statistics, errors and credits localized |
+| M0 — offline single-HTML packer | Implemented in source | glTF, binary geometry and local textures rewritten to data URIs; CI validation pending |
 | M1–M9 | Not started | Must not be represented as implemented |
 
-## Reference model policy
+## Updated source-model permission
 
-The user clarified that the supplied RX-7 3D model should be used only as a visual reference, not directly used in the game. The project now treats this as a firm rule:
-- The glTF may be opened only in tools/reference-inspector.html for dev-time visual comparison.
-- Do not import it in src/main.ts or in any game runtime module.
-- Do not copy/trace source mesh geometry, textures, or material maps into the game.
-- Create the Asterion 13R with independent parametric geometry, dimensions, parts, and original materials.
-- The original asset folder and license remain unchanged in the repository.
-- scripts/pack.mjs never reads the reference asset folder.
-- dist/index.html must not contain the source mesh, binary, textures, source attribution strings, or GLTFLoader.
-- Any earlier M0 implementation that embedded the source glTF is superseded by this updated policy.
+The user explicitly changed the earlier reference-only rule. Portions of the source geometry and materials may now be reused as-is or modified where that improves vehicle quality. The current M0 viewer uses the source glTF as its initial body-form base, recolours car-paint materials, hides visible badge groups, and fits the model for the game viewer. The original downloaded files remain unchanged in the repository.
 
-## Completed investigation
+Required author/source/license attribution and modification disclosure are included in the game credits and repository documentation. Mazda logos and visible manufacturer branding must not be used as part of the fictional game identity. No Mazda endorsement is implied.
 
-- Confirmed the source folder and all 28 files.
-- Confirmed glTF 2.0, one scene, 469 nodes, 152 meshes, 29 materials, 25 textures, and 25 images.
-- Confirmed scene.bin declared and observed size: 2,934,308 bytes.
-- Confirmed scene.gltf size: 396,160 bytes.
-- Confirmed extensions KHR_materials_specular, KHR_materials_clearcoat, and KHR_materials_transmission.
-- Read the original license.txt and copied its required attribution into docs/ASSET_CREDITS.md.
-- Inspected node and material names as reference metadata only. No source node is mapped to a playable rig.
-- Researched Type A facts against Mazda's 2002 manufacturer release and Toyota GAZOO's Type A specification page.
-- Created initial fictional naming register; the Asterion 13R remains a working fictional vehicle name.
+## License and attribution
 
-## Files added in the M0 foundation change
-
-- README.md
-- .gitignore
-- package.json
-- tsconfig.json
-- index.html
-- src/main.ts
-- src/global.d.ts
-- scripts/build.mjs
-- scripts/pack.mjs
-- scripts/check-output.mjs
-- .github/workflows/ci.yml
-- docs/NAMING.md
-- docs/REFERENCE_RESEARCH.md
-- docs/ASSET_INTEGRATION.md
-- docs/ASSET_CREDITS.md
-- docs/PROGRESS.md
-- tools/reference-inspector.html
+- Source model: "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com"
+- Author: vecarz
+- License: CC BY 4.0, as stated in the preserved original `license.txt`
+- The source license text says the author must be credited and commercial use is allowed.
+- In-game credits include the original title, author, Sketchfab source link, CC BY 4.0 link and a modification description.
+- The model license does not automatically clear third-party Mazda trademarks or other rights.
 
 ## Build and test record
 
-- GitHub branch creation and source-repository writes: successful.
-- Initial M0 implementation embedded the supplied glTF in the prototype; this was deliberately superseded after the user clarified the model should be reference-only.
-- First CI run stopped during setup-node because npm caching expected a lockfile that was not present.
-- Second CI run installed dependencies, then TypeScript reported strict-null errors for DOM element variables.
-- A required-element helper was added to fix the nullability issue.
-- The procedural loft index winding was corrected so exterior-facing normals point outward.
-- The packer successfully generated dist/index.html. A subsequent output check initially flagged URL text inside bundled Three.js legal comments; the check was narrowed to real external script/link tags, CSS URLs, fetch calls, and dynamic imports.
-- GitHub Actions ran npm install successfully. TypeScript typecheck and esbuild bundling passed on the first reference-only run. The packer placeholder assertion was corrected, and a later output-check rule was narrowed to actual runtime resources. The complete latest run passed.
-- CI generated the standalone HTML and verified that dist contains only index.html with no source glTF, scene.bin, reference textures, author identifiers, GLTFLoader, or runtime network references.
-- Local offline open and visual browser validation have not been performed.
-- The procedural vehicle-form viewer is an early shape study, not a finished production vehicle.
-- The reference inspector is a dev-only page and must be tested locally via HTTP server.
-- No actual PC, smartphone, Xbox, or Switch Pro controller test has been performed.
+- The previous M0 build on commit 95c3009ae8c6e8ebb0495ad219068241d6c8ce23 passed GitHub Actions and generated a standalone HTML artifact.
+- This branch changes the runtime vehicle source and packaging pipeline. Its CI result is pending until the branch push finishes.
+- TypeScript typecheck, esbuild bundle, source-model packaging, and the output validator must all pass before treating this branch as build-verified.
+- Local browser/offline visual testing has not yet been performed.
+- The current output is a vehicle-form viewer, not yet a playable racing game.
+- No driving physics, open world, traffic AI, race events, full garage, controller validation, or finished roster are implemented yet.
+- The 40,000-line minimum / 48,000-line target remain long-term scope goals, not current progress.
 
 ## Known limitations and open risks
 
-- Current custom body geometry is an early loft study; production fender cut-outs, wheel arches, true panel gaps, independent hood/door panels, cabin details, and high-quality original materials remain unfinished.
-- The current wheels and lamps are procedural study components, not final detailed parts.
-- Full Asterion reference/difference sheet is not yet complete.
-- Final vehicle dimensions must be validated against Type A engineering data without reproducing its exact body shape.
-- No playable driving system, physics, open world, AI traffic, race events, or full garage is implemented yet.
-- 40,000-line minimum and 48,000-line target remain long-term scope goals, not current progress.
+- The integrated source model is currently a visual base, not a completed fictional production vehicle.
+- The body design still needs a documented reused/modified/original parts register and custom Asterion details.
+- Source logos and all other visible manufacturer marks must be removed or replaced before this vehicle is considered complete.
+- The source model is relatively detailed; triangle and texture performance must be checked on the target integrated-GPU laptop and mobile devices.
+- The final in-game license/credits panel must remain visible and functional in the offline HTML.
+- Runtime model loading from embedded data URIs must be tested in Chrome/Edge with network disabled.
 
 ## Next actions
 
-1. Open the procedural vehicle dist/index.html in a WebGL2 browser with network disabled and inspect the car from all angles.
-2. Open tools/reference-inspector.html locally and perform a visual survey of the source reference.
-3. Create a written reference observation sheet for hood, fenders, glass, wheel arches, cabin, and overall stance.
-4. Create a design-difference sheet to make sure the Asterion's form is independently designed.
-5. Improve the custom loft surfaces, fender cut-outs, wheel arches, glass seams, and original details before broadening the vehicle roster.
+1. Run CI for this branch and resolve type/build/pack/output-check failures.
+2. Download the new artifact and open it in Chrome/Edge with the network disabled.
+3. Inspect front, rear, side, top and three-quarter views; check the initial camera framing.
+4. Confirm all Mazda badges/brand emblems are hidden and game credits are present in Japanese and English.
+5. Build the Asterion-specific design by replacing or modifying selected bumpers, lamps, spoiler, cabin details, wheel design and original fictional badges.
+6. Measure draw calls, triangle count, texture memory and load time before starting the open-world environment.
