@@ -10,9 +10,9 @@ Latest change: reference-only model policy
 | Milestone | Status | Notes |
 |---|---|---|
 | M0 — repository and model audit | In progress | Repository, source asset metadata, licence, and initial Type A research checked |
-| M0 — original procedural vehicle-form viewer | Implemented in source | Updated to avoid all glTF imports; requires CI and browser validation |
-| M0 — reference-only inspector | Implemented in source | Separate tools page, excluded from dist; requires local browser validation |
-| M0 — single-HTML packer | Implemented in source | Updated to bundle game code only and reject reference-model leakage; requires CI |
+| M0 — original procedural vehicle-form viewer | Implemented in source | Updated to avoid all glTF imports; CI build passes, browser validation pending |
+| M0 — reference-only inspector | Implemented in source | Separate tools page, excluded from dist; local browser validation pending |
+| M0 — single-HTML packer | Implemented in source | CI build and reference-exclusion checks pass; local browser validation pending |
 | M1–M9 | Not started | Must not be represented as implemented |
 
 ## Reference model policy
@@ -67,8 +67,9 @@ The user clarified that the supplied RX-7 3D model should be used only as a visu
 - Second CI run installed dependencies, then TypeScript reported strict-null errors for DOM element variables.
 - A required-element helper was added to fix the nullability issue.
 - The procedural loft index winding was corrected so exterior-facing normals point outward.
-- The packer now successfully generated a 560,183-byte dist/index.html. The subsequent output check falsely flagged URL text inside bundled Three.js legal comments as runtime network dependencies. The check is being narrowed to actual external script/link tags, CSS URLs, fetch calls, and dynamic imports.
-- GitHub Actions ran npm install successfully. TypeScript typecheck and esbuild bundling passed on commit a532325fa532b6703ebbf951bfbf8622143f7e0c; the first reference-only packer run failed at its post-replacement placeholder assertion. A fix is committed in 44f3f57aab2bbbee96d97157725f68fb87d09272 and its rerun is pending.
+- The packer successfully generated dist/index.html. A subsequent output check initially flagged URL text inside bundled Three.js legal comments; the check was narrowed to real external script/link tags, CSS URLs, fetch calls, and dynamic imports.
+- GitHub Actions ran npm install successfully. TypeScript typecheck and esbuild bundling passed on the first reference-only run. The packer placeholder assertion was corrected, and a later output-check rule was narrowed to actual runtime resources. The complete latest run passed.
+- CI generated the standalone HTML and verified that dist contains only index.html with no source glTF, scene.bin, reference textures, author identifiers, GLTFLoader, or runtime network references.
 - Local offline open and visual browser validation have not been performed.
 - The procedural vehicle-form viewer is an early shape study, not a finished production vehicle.
 - The reference inspector is a dev-only page and must be tested locally via HTTP server.
@@ -85,9 +86,8 @@ The user clarified that the supplied RX-7 3D model should be used only as a visu
 
 ## Next actions
 
-1. Confirm the latest GitHub Actions run on commit 44f3f57aab2bbbee96d97157725f68fb87d09272 and fix any remaining errors.
-2. Open the procedural vehicle dist/index.html in a WebGL2 browser with network disabled.
-3. Open tools/reference-inspector.html locally and perform a visual survey of the source reference.
-4. Create a written reference observation sheet for hood, fenders, glass, wheel arches, cabin, and overall stance.
-5. Create a design-difference sheet to make sure the Asterion's form is independently designed.
-6. Improve the custom loft surfaces, fender cut-outs, wheel arches, glass seams, and original details before broadening the vehicle roster.
+1. Open the procedural vehicle dist/index.html in a WebGL2 browser with network disabled and inspect the car from all angles.
+2. Open tools/reference-inspector.html locally and perform a visual survey of the source reference.
+3. Create a written reference observation sheet for hood, fenders, glass, wheel arches, cabin, and overall stance.
+4. Create a design-difference sheet to make sure the Asterion's form is independently designed.
+5. Improve the custom loft surfaces, fender cut-outs, wheel arches, glass seams, and original details before broadening the vehicle roster.
