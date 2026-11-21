@@ -4,6 +4,7 @@ Last updated: 2026-11-21 (JST)
 Working branch: dev/m0-japanese-source-model
 Base branch: dev/m0-foundation
 Base commit: 95c3009ae8c6e8ebb0495ad219068241d6c8ce23
+Latest verified commit: 16765eb1f2f9c19297b91fd6a60b1ba4422eb6ae
 
 ## Milestone status
 
@@ -12,7 +13,7 @@ Base commit: 95c3009ae8c6e8ebb0495ad219068241d6c8ce23
 | M0 — repository and source asset audit | Complete | glTF, 469 nodes, 152 meshes, 29 materials, 25 textures, and source license checked |
 | M0 — licensed source-model vehicle base | Implemented in source | Source car form integrated into the viewer; car paint recoloured and source badges hidden; visual browser validation pending |
 | M0 — Japanese-first interface | Implemented in source | Japanese default, English toggle, controls, status, model statistics, errors and credits localized |
-| M0 — offline single-HTML packer | Implemented in source | glTF, binary geometry and local textures rewritten to data URIs; CI validation pending |
+| M0 — offline single-HTML packer | CI verified | glTF, binary geometry and local textures embedded as data URIs; output validator passed |
 | M1–M9 | Not started | Must not be represented as implemented |
 
 ## Updated source-model permission
@@ -33,7 +34,9 @@ Required author/source/license attribution and modification disclosure are inclu
 ## Build and test record
 
 - The previous M0 build on commit 95c3009ae8c6e8ebb0495ad219068241d6c8ce23 passed GitHub Actions and generated a standalone HTML artifact.
-- This branch changes the runtime vehicle source and packaging pipeline. Its CI result is pending until the branch push finishes.
+- The source-model integration branch passed GitHub Actions run 44884352245 on commit 944e791b33ada9d24e0b637969f43940c926b913.
+- A follow-up camera-dimension correction passed GitHub Actions run 44884457463 on commit 16765eb1f2f9c19297b91fd6a60b1ba4422eb6ae.
+- Latest verified package: dist/index.html, 10,213,005 bytes; artifact ZIP: 5,795,509 bytes.
 - TypeScript typecheck, esbuild bundle, source-model packaging, and the output validator must all pass before treating this branch as build-verified.
 - Local browser/offline visual testing has not yet been performed.
 - The current output is a vehicle-form viewer, not yet a playable racing game.
@@ -51,9 +54,8 @@ Required author/source/license attribution and modification disclosure are inclu
 
 ## Next actions
 
-1. Run CI for this branch and resolve type/build/pack/output-check failures.
-2. Download the new artifact and open it in Chrome/Edge with the network disabled.
-3. Inspect front, rear, side, top and three-quarter views; check the initial camera framing.
-4. Confirm all Mazda badges/brand emblems are hidden and game credits are present in Japanese and English.
-5. Build the Asterion-specific design by replacing or modifying selected bumpers, lamps, spoiler, cabin details, wheel design and original fictional badges.
-6. Measure draw calls, triangle count, texture memory and load time before starting the open-world environment.
+1. Download the latest passing artifact from run 44884457463 and open it in Chrome/Edge with the network disabled.
+2. Inspect front, rear, side, top and three-quarter views; confirm the corrected initial camera framing.
+3. Confirm all Mazda badges/brand emblems are hidden and game credits are present in Japanese and English.
+4. Build the Asterion-specific design by replacing or modifying selected bumpers, lamps, spoiler, cabin details, wheel design and original fictional badges.
+5. Measure draw calls, triangle count, texture memory and load time before starting the open-world environment.
