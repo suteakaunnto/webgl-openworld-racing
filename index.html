@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080c12">
+  <meta name="description" content="KITEBOUND: ROADS OF VEYRA — M0 vehicle asset viewer">
+  <title>KITEBOUND — M0 Asset Viewer</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #080c12;
+      color: #edf3f8;
+    }
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; }
+    body { background: radial-gradient(ellipse at 50% 42%, #1b2b3d 0%, #0a111a 55%, #05080d 100%); }
+    #viewport { position: fixed; inset: 0; }
+    #viewport canvas { display: block; width: 100%; height: 100%; touch-action: none; }
+    .topbar {
+      position: fixed; z-index: 3; top: max(18px, env(safe-area-inset-top)); left: max(18px, env(safe-area-inset-left));
+      right: max(18px, env(safe-area-inset-right)); display: flex; justify-content: space-between; align-items: flex-start; gap: 16px;
+      pointer-events: none;
+    }
+    .brand { letter-spacing: .22em; font-size: 11px; font-weight: 800; color: #d8e6f3; }
+    .subtitle { margin-top: 7px; font-size: 10px; letter-spacing: .16em; color: #8296aa; }
+    .status {
+      border: 1px solid rgba(174, 203, 225, .22); border-radius: 999px; padding: 8px 12px;
+      background: rgba(7, 13, 21, .64); color: #a9c5d9; font-size: 10px; letter-spacing: .12em;
+    }
+    .panel {
+      position: fixed; z-index: 3; left: max(18px, env(safe-area-inset-left)); bottom: max(18px, env(safe-area-inset-bottom));
+      width: min(360px, calc(100vw - 36px)); padding: 16px 18px; border: 1px solid rgba(174, 203, 225, .18);
+      border-radius: 14px; background: rgba(5, 10, 17, .74); backdrop-filter: blur(16px); box-shadow: 0 18px 60px rgba(0,0,0,.24);
+    }
+    .eyebrow { color: #82b8d5; font-size: 9px; letter-spacing: .2em; font-weight: 800; }
+    h1 { margin: 8px 0 4px; font-size: 18px; letter-spacing: .08em; font-weight: 650; }
+    .description { margin: 0; color: #8fa2b4; font-size: 11px; line-height: 1.6; }
+    #model-info { margin-top: 12px; color: #c5d5e2; font: 10px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-line; }
+    .toolbar { display: flex; gap: 8px; margin-top: 12px; }
+    button {
+      border: 1px solid rgba(151, 190, 218, .28); border-radius: 8px; padding: 8px 11px; color: #dce9f1;
+      background: rgba(76, 117, 148, .16); font: inherit; font-size: 10px; letter-spacing: .08em; cursor: pointer;
+    }
+    button:hover { background: rgba(76, 117, 148, .3); }
+    #hint {
+      position: fixed; z-index: 2; right: max(20px, env(safe-area-inset-right)); bottom: max(20px, env(safe-area-inset-bottom));
+      color: rgba(198, 216, 230, .58); font-size: 10px; letter-spacing: .08em; text-align: right; pointer-events: none;
+    }
+    #error {
+      display: none; position: fixed; z-index: 5; inset: 50% auto auto 50%; transform: translate(-50%, -50%);
+      width: min(560px, calc(100vw - 36px)); padding: 18px; border: 1px solid #a44e52; border-radius: 12px;
+      background: rgba(30, 8, 12, .94); color: #ffdfe0; font: 12px/1.6 ui-monospace, monospace; white-space: pre-wrap;
+    }
+    @media (max-width: 640px) {
+      .topbar { flex-direction: column; }
+      .panel { width: min(330px, calc(100vw - 36px)); }
+      #hint { display: none; }
+    }
+  </style>
+</head>
+<body>
+  <main id="viewport" aria-label="3D vehicle showroom"></main>
+  <header class="topbar">
+    <div>
+      <div class="brand">KITEBOUND / ROADS OF VEYRA</div>
+      <div class="subtitle">A WORLD BEYOND THE APEX · M0 ASSET VALIDATION</div>
+    </div>
+    <div id="status" class="status">INITIALIZING WEBGL2</div>
+  </header>
+  <section class="panel">
+    <div class="eyebrow">HERO ASSET / SOURCE MODEL</div>
+    <h1>ROTARY COUPE STUDY</h1>
+    <p class="description">The supplied glTF is shown without destructive edits. Drag to orbit, scroll or pinch to zoom.</p>
+    <div id="model-info">Waiting for embedded glTF data…</div>
+    <div class="toolbar">
+      <button id="rotate-toggle" type="button">PAUSE ROTATION</button>
+      <button id="reset-view" type="button">RESET VIEW</button>
+    </div>
+  </section>
+  <div id="hint">DRAG TO ORBIT · SCROLL TO ZOOM</div>
+  <pre id="error" role="alert"></pre>
+  <script>
+    window.__RX7_GLTF_DATA_URI__ = "__RX7_GLTF_DATA_URI__";
+  </script>
+  <script>
+    __APP_BUNDLE__
+  </script>
+</body>
+</html>

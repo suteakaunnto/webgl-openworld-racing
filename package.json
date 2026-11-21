@@ -1,0 +1,26 @@
+{
+  "name": "kitebound-roads-of-veyra",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "A self-contained Three.js open-world racing game prototype.",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "bundle": "node scripts/build.mjs",
+    "pack": "node scripts/pack.mjs",
+    "build": "npm run typecheck && npm run bundle && npm run pack",
+    "check-output": "node scripts/check-output.mjs",
+    "verify": "npm run build && npm run check-output"
+  },
+  "dependencies": {
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/three": "0.187.0",
+    "esbuild": "0.28.2",
+    "typescript": "5.9.3"
+  }
+}
