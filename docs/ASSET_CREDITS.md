@@ -1,12 +1,21 @@
-# Third-Party Asset Credits
+# Reference Asset Provenance and Attribution
 
-## Supplied RX-7 glTF model
+## Important change in use
 
-The following attribution text is copied from the source asset's own license.txt and must be retained wherever the model is shared, adapted, or distributed:
+The supplied Mazda RX-7 Spirit R Type A glTF is retained only as a development-time visual reference. It is not used as a game asset, source mesh, texture source, or runtime dependency. It is not embedded in the game HTML and will not appear as a playable vehicle.
+
+The fictional Asterion 13R is independently authored from parametric geometry and original materials. It is not presented as a Mazda vehicle or as an endorsed or approved product.
+
+## Source reference model
+
+The reference model remains in the repository under:
+mazda_rx-7_spirit_r_type_a_2002__www.vecarz.com/
+
+The original license.txt is preserved unchanged. Since the reference model remains in the public source repository, its required attribution is retained here:
 
 This work is based on "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com" (https://sketchfab.com/3d-models/mazda-rx-7-spirit-r-type-a-2002-wwwvecarzcom-57ef6f2e2980487080b84e0b16979978) by vecarz (https://sketchfab.com/heynic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
 
-## License and source facts
+## Source and license facts
 
 - Asset title: Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com
 - Author: vecarz
@@ -18,14 +27,12 @@ This work is based on "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com" (https:
 
 ## Modification disclosure
 
-The M0 viewer loads the supplied glTF without intentional mesh or texture edits. The HTML packer only rewrites resource URIs in an in-memory copy of the glTF JSON so that the binary buffer and textures can be embedded in a standalone HTML file. It does not rewrite the source glTF, binary, or image files.
+No changes are made to the original glTF, binary, or source textures. The development-only inspector reads the files for visual observation and does not export them.
 
-Any later derived-model edits must be described here, including logo or badge removal/replacement, material changes, hierarchy changes, scale adjustments, or geometry changes.
+The final game does not contain any geometry or image data from this model. It does not contain any source-model files or GLTFLoader code. As a result, the in-game Credits screen does not need to present the source model as a used game asset. This provenance/attribution record remains in the source repository because the reference files are retained and shared there.
 
-## Important rights separation
+Any future change to this policy requires updating this file, docs/ASSET_INTEGRATION.md, the production packer, and the final-build exclusion tests before the change is made.
 
-CC BY 4.0 applies to the identified model asset under its license terms. It does not automatically grant rights to Mazda trademarks, emblems, vehicle branding, or other third-party material visible within the model. The game must not imply Mazda endorsement. Before distributing the derived game vehicle, review and remove or replace visible third-party marks as required.
+## Trademark separation
 
-## In-game credit
-
-Add this exact attribution to the game's Credits screen before a build containing this asset is distributed. Do not shorten it in a way that removes the author, source, or license.
+The CC BY 4.0 license applies to the 3D model asset under its stated terms. It does not automatically grant rights to Mazda trademarks, emblems, product branding, or other third-party material visible in the source model. Do not copy those marks into the fictional game or imply manufacturer endorsement.

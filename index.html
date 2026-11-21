@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#080c12">
-  <meta name="description" content="KITEBOUND: ROADS OF VEYRA — M0 vehicle asset viewer">
-  <title>KITEBOUND — M0 Asset Viewer</title>
+  <meta name="description" content="KITEBOUND: ROADS OF VEYRA — original procedural vehicle-form study">
+  <title>KITEBOUND — Original Vehicle Form Study</title>
   <style>
     :root {
       color-scheme: dark;
@@ -31,14 +31,14 @@
     }
     .panel {
       position: fixed; z-index: 3; left: max(18px, env(safe-area-inset-left)); bottom: max(18px, env(safe-area-inset-bottom));
-      width: min(360px, calc(100vw - 36px)); padding: 16px 18px; border: 1px solid rgba(174, 203, 225, .18);
-      border-radius: 14px; background: rgba(5, 10, 17, .74); backdrop-filter: blur(16px); box-shadow: 0 18px 60px rgba(0,0,0,.24);
+      width: min(380px, calc(100vw - 36px)); padding: 16px 18px; border: 1px solid rgba(174, 203, 225, .18);
+      border-radius: 14px; background: rgba(5, 10, 17, .76); backdrop-filter: blur(16px); box-shadow: 0 18px 60px rgba(0,0,0,.24);
     }
     .eyebrow { color: #82b8d5; font-size: 9px; letter-spacing: .2em; font-weight: 800; }
     h1 { margin: 8px 0 4px; font-size: 18px; letter-spacing: .08em; font-weight: 650; }
     .description { margin: 0; color: #8fa2b4; font-size: 11px; line-height: 1.6; }
     #model-info { margin-top: 12px; color: #c5d5e2; font: 10px/1.7 ui-monospace, SFMono-Regular, Consolas, monospace; white-space: pre-line; }
-    .toolbar { display: flex; gap: 8px; margin-top: 12px; }
+    .toolbar { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
     button {
       border: 1px solid rgba(151, 190, 218, .28); border-radius: 8px; padding: 8px 11px; color: #dce9f1;
       background: rgba(76, 117, 148, .16); font: inherit; font-size: 10px; letter-spacing: .08em; cursor: pointer;
@@ -55,25 +55,25 @@
     }
     @media (max-width: 640px) {
       .topbar { flex-direction: column; }
-      .panel { width: min(330px, calc(100vw - 36px)); }
+      .panel { width: min(340px, calc(100vw - 36px)); }
       #hint { display: none; }
     }
   </style>
 </head>
 <body>
-  <main id="viewport" aria-label="3D vehicle showroom"></main>
+  <main id="viewport" aria-label="Original procedural vehicle showroom"></main>
   <header class="topbar">
     <div>
       <div class="brand">KITEBOUND / ROADS OF VEYRA</div>
-      <div class="subtitle">A WORLD BEYOND THE APEX · M0 ASSET VALIDATION</div>
+      <div class="subtitle">A WORLD BEYOND THE APEX · ORIGINAL VEHICLE GEOMETRY</div>
     </div>
     <div id="status" class="status">INITIALIZING WEBGL2</div>
   </header>
   <section class="panel">
-    <div class="eyebrow">HERO ASSET / SOURCE MODEL</div>
-    <h1>ROTARY COUPE STUDY</h1>
-    <p class="description">The supplied glTF is shown without destructive edits. Drag to orbit, scroll or pinch to zoom.</p>
-    <div id="model-info">Waiting for embedded glTF data…</div>
+    <div class="eyebrow">ASTERION 13R / ORIGINAL GAME VEHICLE</div>
+    <h1>ROTARY COUPE — BODY FORM STUDY</h1>
+    <p class="description">This prototype is generated from original parametric geometry. The external RX-7 glTF is retained only as a separate development reference and is not part of this game build.</p>
+    <div id="model-info">Generating original body surfaces…</div>
     <div class="toolbar">
       <button id="rotate-toggle" type="button">PAUSE ROTATION</button>
       <button id="reset-view" type="button">RESET VIEW</button>
@@ -81,9 +81,6 @@
   </section>
   <div id="hint">DRAG TO ORBIT · SCROLL TO ZOOM</div>
   <pre id="error" role="alert"></pre>
-  <script>
-    window.__RX7_GLTF_DATA_URI__ = "__RX7_GLTF_DATA_URI__";
-  </script>
   <script>
     __APP_BUNDLE__
   </script>

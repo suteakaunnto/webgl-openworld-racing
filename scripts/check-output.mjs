@@ -1,39 +1,40 @@
 /**
- * Verifies the packaged HTML artifact without launching a browser.
- * Browser rendering and offline-open tests remain separate manual/CI browser checks.
+ * Verifies that the distribution is a single self-contained game HTML file.
+ * Reference-model exclusion is a hard requirement, not a warning.
  */
 import { readFile, stat, readdir } from "node:fs/promises";
 import { resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
 const root = resolve(fileURLToPath(new URL("..", import.meta.url)));
-const outputPath = resolve(root, "dist/index.html");
+const distDirectory = resolve(root, "dist");
+const outputPath = resolve(distDirectory, "index.html");
 const html = await readFile(outputPath, "utf8");
 const info = await stat(outputPath);
-const distEntries = await readdir(resolve(root, "dist"));
+const entries = await readdir(distDirectory);
 
-const required = [
-  "data:application/json;base64,",
-  "WebGL2",
-  "GLTF SCENE LOADED"
-];
-
-for (const marker of required) {
-  if (!html.includes(marker)) {
-    throw new Error("Packaged HTML is missing required marker: " + marker);
-  }
+if (!html.includes("ORIGINAL PARAMETRIC GEOMETRY")) {
+  throw new Error("Standalone HTML is missing the original procedural vehicle marker.");
 }
-if (html.includes("__APP_BUNDLE__") || html.includes("__RX7_GLTF_DATA_URI__")) {
-  throw new Error("Packaged HTML still contains an unexpanded placeholder.");
+if (!html.includes("EXTERNAL / NOT EMBEDDED")) {
+  throw new Error("Standalone HTML is missing the reference exclusion marker.");
 }
-if (/<script\s+src\s*=|<link[^>]+href\s*=\s*["']https?:/i.test(html)) {
-  throw new Error("Packaged HTML contains an external script or stylesheet reference.");
+if (/scene\.gltf|scene\.bin|GLTFLoader|mazda_rx-7_spirit_r_type_a|vecarz|sketchfab/i.test(html)) {
+  throw new Error("Reference-model data or attribution leaked into the distributable HTML.");
 }
-if (info.size < 1000000) {
-  throw new Error("Packaged HTML is unexpectedly small; model data may not be embedded.");
+if (/__APP_BUNDLE__|__RX7_GLTF_DATA_URI__/.test(html)) {
+  throw new Error("Packaged HTML contains an unexpanded placeholder.");
 }
-if (distEntries.some((entry) => entry !== "index.html")) {
-  throw new Error("dist must contain only index.html after packing. Found: " + distEntries.join(", "));
+if (/<script\s+src\s*=|<link[^>]+href\s*=\s*["']https?:|https?:\/\//i.test(html)) {
+  throw new Error("Packaged HTML contains an external runtime dependency.");
+}
+if (entries.length !== 1 || entries[0] !== "index.html") {
+  throw new Error("dist must contain only index.html after packing. Found: " + entries.join(", "));
+}
+if (info.size < 100000) {
+  throw new Error("Packaged HTML is unexpectedly small; the bundled game engine may be missing.");
 }
 
-console.log("[check-output] PASS — " + info.size.toLocaleString() + " bytes; dist contains only index.html.");
+console.log("[check-output] PASS — " + info.size.toLocaleString() + " bytes.");
+console.log("[check-output] PASS — dist contains only index.html.");
+console.log("[check-output] PASS — no RX-7 reference meshes, textures, binary, or GLTFLoader are included.");

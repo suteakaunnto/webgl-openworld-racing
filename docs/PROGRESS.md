@@ -3,37 +3,41 @@
 Last updated: 2026-11-21 (JST)
 Working branch: dev/m0-foundation
 Base branch: main
-Base commit: 736ed4b785852f196e9e0051c2568ab9106a62fa
+Latest change: reference-only model policy
 
 ## Milestone status
 
 | Milestone | Status | Notes |
 |---|---|---|
-| M0 — repository and model audit | In progress | Repository, asset metadata, licence, and initial Type A research checked |
-| M0 — Three.js startup and showroom | Implemented in source | Needs CI build and browser runtime validation |
-| M0 — single-HTML packer | Implemented in source | Needs build run and offline browser check |
+| M0 — repository and model audit | In progress | Repository, source asset metadata, licence, and initial Type A research checked |
+| M0 — original procedural vehicle-form viewer | Implemented in source | Updated to avoid all glTF imports; requires CI and browser validation |
+| M0 — reference-only inspector | Implemented in source | Separate tools page, excluded from dist; requires local browser validation |
+| M0 — single-HTML packer | Implemented in source | Updated to bundle game code only and reject reference-model leakage; requires CI |
 | M1–M9 | Not started | Must not be represented as implemented |
 
-## Verified repository state at start
+## Reference model policy
 
-- Repository: public, not archived.
-- Default branch: main.
-- Permissions returned by GitHub: admin, maintain, pull, push, triage.
-- Main had one commit at audit time: 736ed4b785852f196e9e0051c2568ab9106a62fa.
-- Main tree contained only the RX-7 source asset folder; no README, package.json, TypeScript source, build scripts, or docs existed.
-- A new branch, dev/m0-foundation, was created from main. Main was not modified during initial setup.
+The user clarified that the supplied RX-7 3D model should be used only as a visual reference, not directly used in the game. The project now treats this as a firm rule:
+- The glTF may be opened only in tools/reference-inspector.html for dev-time visual comparison.
+- Do not import it in src/main.ts or in any game runtime module.
+- Do not copy/trace source mesh geometry, textures, or material maps into the game.
+- Create the Asterion 13R with independent parametric geometry, dimensions, parts, and original materials.
+- The original asset folder and license remain unchanged in the repository.
+- scripts/pack.mjs never reads the reference asset folder.
+- dist/index.html must not contain the source mesh, binary, textures, source attribution strings, or GLTFLoader.
+- Any earlier M0 implementation that embedded the source glTF is superseded by this updated policy.
 
 ## Completed investigation
 
 - Confirmed the source folder and all 28 files.
 - Confirmed glTF 2.0, one scene, 469 nodes, 152 meshes, 29 materials, 25 textures, and 25 images.
-- Confirmed scene.bin declared and actual size: 2,934,308 bytes.
+- Confirmed scene.bin declared and observed size: 2,934,308 bytes.
 - Confirmed scene.gltf size: 396,160 bytes.
-- Confirmed asset extensions KHR_materials_specular, KHR_materials_clearcoat, and KHR_materials_transmission.
+- Confirmed extensions KHR_materials_specular, KHR_materials_clearcoat, and KHR_materials_transmission.
 - Read the original license.txt and copied its required attribution into docs/ASSET_CREDITS.md.
-- Inspected glTF node and material names. Wheel pivots have not been confirmed.
+- Inspected node and material names as reference metadata only. No source node is mapped to a playable rig.
 - Researched Type A facts against Mazda's 2002 manufacturer release and Toyota GAZOO's Type A specification page.
-- Created initial project naming register in docs/NAMING.md.
+- Created initial fictional naming register; the Asterion 13R remains a working fictional vehicle name.
 
 ## Files added in the M0 foundation change
 
@@ -53,34 +57,35 @@ Base commit: 736ed4b785852f196e9e0051c2568ab9106a62fa
 - docs/ASSET_INTEGRATION.md
 - docs/ASSET_CREDITS.md
 - docs/PROGRESS.md
+- tools/reference-inspector.html
 
 ## Build and test record
 
-- GitHub branch creation: successful.
-- Source code files and build scripts: committed as an M0 foundation change.
-- npm install: not run in this session.
-- TypeScript typecheck: not run in this session.
-- esbuild: not run in this session.
-- Final dist/index.html: not generated or browser-tested in this session.
-- First GitHub Actions run stopped before dependency installation because setup-node npm caching expected a lockfile that had not yet been generated. This was a workflow configuration issue, not a compiler or game-code result; the cache setting is being removed and CI rerun.
-- Second CI run successfully installed dependencies but TypeScript found four strict-null errors for DOM references captured in callbacks. The element lookup now uses a required-element helper; a fresh CI run will verify the fix.
-- The strict-null fix was committed at 0d620bc405a6cda78616cd1cd6bd6a213533c228. The latest CI run still needs to be observed against this commit.
-- WebGL2 loading, offline file opening, and visual correctness: pending CI/browser validation.
+- GitHub branch creation and source-repository writes: successful.
+- Initial M0 implementation embedded the supplied glTF in the prototype; this was deliberately superseded after the user clarified the model should be reference-only.
+- First CI run stopped during setup-node because npm caching expected a lockfile that was not present.
+- Second CI run installed dependencies, then TypeScript reported strict-null errors for DOM element variables.
+- A required-element helper was added to fix the nullability issue.
+- CI result for the latest build changes is still pending.
+- npm install, TypeScript typecheck, bundle, final HTML generation, local offline open, and visual browser validation have not been run in this chat environment.
+- The procedural vehicle-form viewer is an early shape study, not a finished production vehicle.
+- The reference inspector is a dev-only page and must be tested locally via HTTP server.
+- No actual PC, smartphone, Xbox, or Switch Pro controller test has been performed.
 
 ## Known limitations and open risks
 
-- The initial viewer is an asset-validation scene, not a playable car or racing game.
-- Original Mazda marks in the source asset have not been altered. A derived game asset must address visible marks before public distribution.
-- Type A wheel groups and pivot transforms need visual/coordinate verification.
-- The current Packer checks missing external resources and embeds their bytes, but browser loading and offline file behavior still require runtime testing.
-- No actual PC, smartphone, Xbox, or Switch Pro controller test has been performed.
-- The 40,000-line minimum and 48,000-line target are long-term scope targets, not current progress.
+- Current custom body geometry is an early loft study; production fender cut-outs, wheel arches, true panel gaps, independent hood/door panels, cabin details, and high-quality original materials remain unfinished.
+- The current wheels and lamps are procedural study components, not final detailed parts.
+- Full Asterion reference/difference sheet is not yet complete.
+- Final vehicle dimensions must be validated against Type A engineering data without reproducing its exact body shape.
+- No playable driving system, physics, open world, AI traffic, race events, or full garage is implemented yet.
+- 40,000-line minimum and 48,000-line target remain long-term scope goals, not current progress.
 
 ## Next actions
 
-1. Confirm the CI workflow result for this branch.
-2. Fix any TypeScript, bundling, or packer errors found by CI.
-3. Open dist/index.html in a WebGL2 browser with the network disabled.
-4. Verify all meshes and textures visually; capture orthographic views.
-5. Inspect dimensions, axes, wheel centers, pivots, and model hierarchy.
-6. Only then begin derived Asterion 13R rigging and M1 geometry/material work.
+1. Observe the latest GitHub Actions result and fix TypeScript/build/packer errors.
+2. Open the procedural vehicle dist/index.html in a WebGL2 browser with network disabled.
+3. Open tools/reference-inspector.html locally and perform a visual survey of the source reference.
+4. Create a written reference observation sheet for hood, fenders, glass, wheel arches, cabin, and overall stance.
+5. Create a design-difference sheet to make sure the Asterion's form is independently designed.
+6. Improve the custom loft surfaces, fender cut-outs, wheel arches, glass seams, and original details before broadening the vehicle roster.
