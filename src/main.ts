@@ -146,15 +146,6 @@ const vehiclePivot = new THREE.Group();
 vehiclePivot.name = "Asterion13R_VehiclePivot";
 scene.add(vehiclePivot);
 
-function hasSourceBadgeInAncestry(object: THREE.Object3D): boolean {
-  let current: THREE.Object3D | null = object;
-  while (current) {
-    if (/badge|mazda.?logo|manufacturer.?logo/i.test(current.name)) return true;
-    current = current.parent;
-  }
-  return false;
-}
-
 function recolorMaterial(material: THREE.Material): THREE.Material {
   if (!(material instanceof THREE.MeshStandardMaterial) || !/carpaint/i.test(material.name)) return material;
   const paint = material.clone();
@@ -171,10 +162,6 @@ function recolorMaterial(material: THREE.Material): THREE.Material {
 
 function prepareVehicle(root: THREE.Object3D): void {
   root.traverse((object) => {
-    if (hasSourceBadgeInAncestry(object)) {
-      object.visible = false;
-      return;
-    }
     if (!(object as THREE.Mesh).isMesh) return;
 
     const mesh = object as THREE.Mesh;
