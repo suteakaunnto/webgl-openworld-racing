@@ -8,9 +8,9 @@ A browser-based open-world racing project built with Three.js, TypeScript, and W
 - Working branch: dev/m0-japanese-source-model
 - Milestone: M0 — licensed vehicle-base integration, Japanese-first UI, and offline HTML pipeline
 - The supplied Mazda RX-7 Spirit R Type A glTF is licensed under CC BY 4.0 according to its preserved `license.txt`.
-- The project now permits selected source vehicle meshes and materials to be reused and modified as a base for the fictional Asterion 13R. The current M0 viewer uses the source vehicle model as its initial body-form base, recolours paint materials, hides visible source badge groups, and fits it to the viewer.
+- The project uses the supplied Mazda RX-7 Spirit R Type A glTF in full for the current M0 vehicle prototype: all source nodes, meshes, interior parts, wheels, lamps, badges, material assignments and textures are retained. Current changes are limited to car-paint colour and viewer scale/position fitting.
 - Required creator attribution, source link, CC BY 4.0 link, and a modification notice are provided in the in-game credits panel and `docs/ASSET_CREDITS.md`.
-- Mazda logos and trademarks are not copied into the fictional game identity. No manufacturer endorsement is implied.
+- Visible Mazda marks remain in this prototype under the user's full-model-use direction. CC BY 4.0 does not grant trademark rights; separately review those marks before public commercial release. No manufacturer endorsement is implied.
 
 ## Run the successful GitHub Actions build
 
