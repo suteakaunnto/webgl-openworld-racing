@@ -14,13 +14,13 @@ A browser-based open-world racing project built with Three.js, TypeScript, and W
 
 ## Run the successful GitHub Actions build
 
-1. Open the [latest successful full-model build](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44885000368).
+1. Open the [latest successful full-model build](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44885125797).
 2. Under **Artifacts**, download `kitebound-m0-standalone-html`.
 3. Extract the ZIP.
 4. Open the extracted `index.html` in Chrome or Microsoft Edge.
 5. No Node.js or local server is required when running the packaged HTML. Use a browser with WebGL2 support.
 
-The latest successful full-model build is [GitHub Actions run 44885000368](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44885000368), commit `5458b071da1f1fd2124f2928c9661dfdad747fb2`. It produces one standalone `dist/index.html` (10,213,537 bytes); the complete 3D model, binary geometry and all local textures are embedded. The compressed Actions artifact is 5,795,301 bytes.
+The latest successful full-model build is [GitHub Actions run 44885125797](https://github.com/suteakaunnto/webgl-openworld-racing/actions/runs/44885125797), commit `78f94a75f49be2107aeac704dfb3d8fa86263d27`. It produces one standalone `dist/index.html` (10,213,531 bytes); the complete 3D model, binary geometry and all local textures are embedded. The compressed Actions artifact is 5,795,302 bytes.
 
 ## Local development
 

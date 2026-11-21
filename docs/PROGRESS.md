@@ -4,7 +4,7 @@ Last updated: 2026-11-21 (JST)
 Working branch: dev/m0-japanese-source-model
 Base branch: dev/m0-foundation
 Base commit: 95c3009ae8c6e8ebb0495ad219068241d6c8ce23
-Latest verified commit: 5458b071da1f1fd2124f2928c9661dfdad747fb2
+Latest verified commit: 78f94a75f49be2107aeac704dfb3d8fa86263d27
 
 ## Milestone status
 
@@ -35,8 +35,8 @@ Required author/source/license attribution and modification disclosure are inclu
 
 - The previous M0 build on commit 95c3009ae8c6e8ebb0495ad219068241d6c8ce23 passed GitHub Actions and generated a standalone HTML artifact.
 - The source-model integration branch passed GitHub Actions run 44884352245 on commit 944e791b33ada9d24e0b637969f43940c926b913.
-- Full source-model integration (including all nodes, meshes, badges, material assignments and textures) passed GitHub Actions run 44885000368 on commit 5458b071da1f1fd2124f2928c9661dfdad747fb2.
-- Latest verified package: dist/index.html, 10,213,537 bytes; artifact ZIP: 5,795,301 bytes.
+- Full source-model integration (including all nodes, meshes, badges, material assignments and textures) passed GitHub Actions run 44885125797 on commit 78f94a75f49be2107aeac704dfb3d8fa86263d27.
+- Latest verified package: dist/index.html, 10,213,531 bytes; artifact ZIP: 5,795,302 bytes.
 - The output checker confirmed a single HTML file, embedded source geometry/textures, complete Japanese/English attribution and no runtime network dependencies.
 - TypeScript typecheck, esbuild bundle, source-model packaging, and the output validator must all pass before treating this branch as build-verified.
 - Local browser/offline visual testing has not yet been performed.
@@ -55,7 +55,7 @@ Required author/source/license attribution and modification disclosure are inclu
 
 ## Next actions
 
-1. Download the latest passing artifact from run 44885000368 and open it in Chrome/Edge with the network disabled.
+1. Download the latest passing artifact from run 44885125797 and open it in Chrome/Edge with the network disabled.
 2. Inspect the complete source model from front, rear, side, top and three-quarter views; check all parts, badge visibility and camera framing.
 3. Confirm the full-model use statement and vecarz / CC BY 4.0 credits in Japanese and English.
 4. Measure draw calls, triangle count, texture memory and load time before starting the open-world environment.
