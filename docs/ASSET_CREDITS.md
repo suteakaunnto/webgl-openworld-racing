@@ -2,15 +2,17 @@
 
 ## In-game use
 
-The current M0 Asterion 13R vehicle-form prototype uses the supplied licensed model as its starting body-form base. The model's geometry and material structure are loaded into the game viewer. The game changes the car-paint material colour, hides visible manufacturer/badge groups, and adjusts the model's scale and placement for the viewer.
+The current M0 Asterion 13R vehicle-form prototype uses the supplied Mazda RX-7 Spirit R Type A model in full. All source scene nodes and meshes are kept visible, including body panels, interior, wheels, lamps, badges and the model's original material/texture assignments. The current game-side changes are limited to car-paint colour adjustment and uniform scale/position fitting for the viewer. No source badge groups are hidden or removed.
 
-The original downloaded source folder and `license.txt` remain unchanged in the repository. The in-game credits panel includes the source title, author, source link, CC BY 4.0 license link, and a description of the modifications.
+The packer embeds the complete glTF scene, its binary geometry buffer, and all local source texture images into the standalone HTML. The original downloaded source folder and `license.txt` remain unchanged in the repository.
+
+The in-game credits panel includes the source title, author, source link, CC BY 4.0 license link, and a clear modification description.
 
 ## Required attribution
 
 This work is based on "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com" (https://sketchfab.com/3d-models/mazda-rx-7-spirit-r-type-a-2002-wwwvecarzcom-57ef6f2e2980487080b84e0b16979978) by vecarz (https://sketchfab.com/heynic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/).
 
-Modifications made for KITEBOUND: ROADS OF VEYRA: car-paint material recolouring, hiding source manufacturer/badge geometry, and model scale/position adjustments for the in-game viewer. The original source asset files are not edited in place.
+Modifications made for KITEBOUND: ROADS OF VEYRA: car-paint material recolouring and uniform model scale/position adjustments for the in-game viewer. All source scene nodes, meshes, material assignments and texture images are retained. The original source asset files are not edited in place.
 
 ## Source and license facts
 
@@ -26,8 +28,8 @@ The preserved source `license.txt` states that the author must be credited and c
 
 ## Important license and trademark separation
 
-CC BY 4.0 permits sharing and adaptation, including commercial use, as long as its attribution conditions are met. The game therefore retains the creator credit, a source link, a license link, and a clear notice describing modifications.
+CC BY 4.0 permits sharing and adaptation, including commercial use, subject to its attribution conditions. The distributed game must give appropriate credit, link to the source and license, indicate changes, and must not imply endorsement by the creator. See the [CC BY 4.0 legal code](https://creativecommons.org/licenses/by/4.0/legalcode).
 
-The CC BY 4.0 license for the 3D model does not automatically grant rights to Mazda trademarks, emblems, product branding, or third-party material visible in the model. Source badge/logo groups are hidden in the game viewer. The fictional game does not claim Mazda sponsorship, approval, or endorsement.
+Important: CC BY 4.0 licenses only rights the licensor is able to grant. Its Section 2(b)(2) expressly does not license patent or trademark rights. The source model contains Mazda names/branding/badges, which remain visible in this full-source prototype. The model license alone does not establish permission to use those marks as game branding, advertise the product as a Mazda vehicle, or imply Mazda endorsement. Before a public commercial release, separately review the visible marks and get any required permission or remove/replace those elements.
 
-CC BY 4.0 is not a legal clearance of every third-party right that may be visible in or associated with the asset. Recheck rights before a public commercial release.
+The in-game credits therefore distinguish the fictional project name Asterion 13R from the source model identity and state that the original creator does not endorse the game. Do not describe the prototype as an official Mazda product.
