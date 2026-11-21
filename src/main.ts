@@ -217,7 +217,7 @@ function prepareVehicle(root: THREE.Object3D): void {
   root.position.y -= bounds.min.y;
   root.updateMatrixWorld(true);
 
-  modelSize = size.multiplyScalar(uniformScale);
+  modelSize = size;
   modelRoot = root;
 
   vehiclePivot.add(root);
