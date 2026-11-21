@@ -1,16 +1,18 @@
-# Licensed Vehicle Model — Source Reuse and Game Integration
+# Licensed Vehicle Model — Full-Source Integration
 
-Status: the user has explicitly changed the earlier reference-only restriction. The supplied Mazda RX-7 Spirit R Type A glTF may now be used as a licensed geometry/material base for selected parts of the fictional Asterion 13R.
+Status: the user has explicitly authorized use of the entire supplied Mazda RX-7 Spirit R Type A glTF model, not merely selected parts or visual reference. The previous reference-only policy is superseded.
 
 ## Current rule
 
-- The supplied source model is no longer restricted to visual observation.
-- Selected source vehicle meshes and materials may be reused as-is or modified where that produces a materially better result than rebuilding the surfaces procedurally.
-- The current M0 viewer loads the original vehicle model as its first high-quality body-form baseline, then applies game-side adjustments: car-paint colour, hiding source badge/manufacturer-mark groups, and scale/position fitting.
-- Original source files remain unchanged in the repository. The packer reads them and embeds copies into the standalone HTML.
-- Required CC BY 4.0 attribution, source link, license link, and modification disclosure are mandatory in the game credits and repository docs.
-- Never imply that Mazda or the original model author endorses the game.
-- Keep Mazda emblems and visible manufacturer branding out of the fictional in-game identity. Use the fictional Veyra Rotary Atelier and Asterion 13R names.
+- Use the source glTF scene in full for the current M0 vehicle prototype.
+- Keep all source scene nodes and meshes visible, including body panels, doors, cabin/interior, steering wheel, wheels, tyres, brakes, lamps, mirrors, spoiler and badge objects.
+- Use the full source material assignments and all included local textures.
+- Do not hide source badge/manufacturer-mark nodes in the M0 viewer. The user explicitly requested full use of the provided model.
+- Current game-side visual changes are limited to the car-paint material colour and uniform scale/position fitting for the viewer.
+- The original source folder and `license.txt` must remain unchanged. The packer embeds copies of the model data, buffer and textures into the standalone HTML.
+- In-game credits must name vecarz, link to the original Sketchfab page, link to CC BY 4.0, and describe the actual changes.
+- The visible Mazda marks in the supplied model are retained in this development prototype because the user requested full use. Do not imply Mazda endorsement or claim the game is an official Mazda product.
+- Before public commercial release, separately review the Mazda trademarks/branding visible in the model. CC BY 4.0 does not license trademark rights.
 
 ## Source asset
 
@@ -19,12 +21,12 @@ Repository folder:
     mazda_rx-7_spirit_r_type_a_2002__www.vecarz.com/
 
 Original files include:
-- `scene.gltf` — glTF 2.0 scene
+- `scene.gltf` — full glTF 2.0 scene
 - `scene.bin` — geometry buffer
 - `license.txt` — original license and required attribution
-- `textures/` — source PNG textures
+- `textures/` — 25 source PNG files
 
-Source inventory at the initial audit:
+Source inventory:
 - 469 nodes
 - 152 meshes
 - 29 materials
@@ -34,47 +36,39 @@ Source inventory at the initial audit:
 - glTF binary buffer: 2,934,308 bytes
 - scene.gltf: 396,160 bytes
 
-Key component naming found in the glTF includes Hood6, FenderFR6, FenderFL6, FendersR6, BumperF6, BumperR6, Boot6, DoorL4, DoorR4, Glass6, Door glass, Boot glass, mirrors, lamps, spoiler, wheels and cockpit parts. These can be selectively retained, replaced, or reworked as the Asterion design develops.
+## License and attribution
 
-## License
-
-The original `license.txt` declares CC-BY-4.0 and says the author must be credited; commercial use is allowed.
+The original `license.txt` declares CC-BY-4.0, says the author must be credited, and states commercial use is allowed.
 
 Required attribution:
 
 This work is based on "Mazda RX-7 Spirit R Type A 2002 | www.vecarz.com" (https://sketchfab.com/3d-models/mazda-rx-7-spirit-r-type-a-2002-wwwvecarzcom-57ef6f2e2980487080b84e0b16979978) by vecarz (https://sketchfab.com/heynic) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/).
 
-Every distributed build that contains or uses this asset must:
-1. Credit vecarz.
-2. Link to the source model.
-3. Link to CC BY 4.0.
-4. Clearly describe modifications.
-5. Avoid suggesting endorsement by the creator or Mazda.
+Current modifications: car-paint material recolouring and uniform scale/position adjustments. All source geometry, scene nodes, mesh assignments, materials, and textures are retained.
 
-The CC license governs the model asset. It does not itself grant Mazda trademark rights or automatically clear other third-party rights visible in the asset. Hide/remove source brand emblems and do not present the game vehicle as an official Mazda model.
+CC BY 4.0 requires appropriate attribution, a license link, and an indication of changes. It also prohibits suggesting that the licensor endorses the project. Section 2(b)(2) does not grant trademark rights. The source model contains Mazda branding; review those marks separately before public commercial release. See https://creativecommons.org/licenses/by/4.0/legalcode.
 
 ## Offline single-HTML pipeline
 
 `scripts/pack.mjs`:
 1. Reads the game bundle and HTML template.
 2. Reads `scene.gltf` and verifies the source metadata / original license file.
-3. Converts the local glTF binary buffer and all local texture images to data URIs.
-4. Embeds the rewritten glTF JSON and application code into `dist/index.html`.
-5. Does not edit the original source asset files.
+3. Converts the glTF binary buffer and all 25 local texture images to data URIs.
+4. Embeds the complete rewritten glTF JSON and application code into `dist/index.html`.
+5. Does not modify the original source asset files.
 
 `scripts/check-output.mjs` checks:
 - The distributable is exactly one `index.html`.
 - The embedded model block exists.
 - Creator, source and CC BY 4.0 attribution are present.
-- The modification disclosure is present in Japanese and English.
+- The Japanese and English full-model usage/modification disclosure is present.
+- The viewer no longer contains the old source-badge visibility filter.
 - No external runtime script, stylesheet, model, texture, or network-loaded asset is declared.
 
 ## Next model-quality actions
 
-1. Review the integrated model from front, rear, side, top, and all three-quarter angles.
-2. Identify which source parts should remain untouched and which should be reshaped for the Asterion identity.
-3. Replace/hide all remaining source emblems and visible real-manufacturer marks.
-4. Add original Asterion details: badges, lamps where needed, trim, aero, interior accents and materials.
-5. Create an explicit parts register marking each component as reused, modified, or original.
-6. Reduce model draw calls and texture size for the intended PC and mobile performance targets.
-7. Create LODs from the approved game model only; do not let automatic optimization reintroduce hidden brand marks.
+1. Visually inspect the complete integrated car from front, rear, side, top and all three-quarter angles.
+2. Verify that every source scene component, material and texture renders correctly in the standalone HTML.
+3. Profile the complete 469-node / 152-mesh model on the target PC and mobile hardware.
+4. Preserve the full model for the prototype; do not remove or replace source parts without an explicit change to the user's full-use direction.
+5. If a fictional Asterion variant is created later, keep the source RX-7 representation separately identifiable and document every alteration.
