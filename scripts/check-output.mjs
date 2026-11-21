@@ -24,8 +24,11 @@ if (!html.includes("vecarz")) {
 if (!html.includes("https://creativecommons.org/licenses/by/4.0/")) {
   throw new Error("Standalone HTML is missing the CC BY 4.0 license link.");
 }
-if (!html.includes("ブランドバッジの非表示") || !html.includes("hiding source brand badges")) {
-  throw new Error("Standalone HTML is missing the modification disclosure in both languages.");
+if (!html.includes("全メッシュ・素材・テクスチャ") || !html.includes("all source meshes, materials and textures")) {
+  throw new Error("Standalone HTML is missing the full-model usage disclosure in both languages.");
+}
+if (html.includes("hasSourceBadgeInAncestry")) {
+  throw new Error("A source badge visibility filter remains in the production viewer.");
 }
 if (/__APP_BUNDLE__|__EMBEDDED_MODEL_JSON__/.test(html)) {
   throw new Error("Packaged HTML contains an unexpanded placeholder.");
